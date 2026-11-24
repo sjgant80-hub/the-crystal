@@ -1,6 +1,6 @@
 {
  "note": "the runs the page shows; null = not published yet",
- "sealed": null,
+ "sealed": "data/runs/sealed.json",
  "dev": "data/runs/dev.json",
  "seed": "data/seed.json",
  "walk": null
