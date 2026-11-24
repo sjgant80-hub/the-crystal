@@ -1,0 +1,1 @@
+{"maxTicks":256,"maxTokens":24,"depth":8,"climbTokens":128,"mem":{"k":8,"probes":1},"sets":{"sample":{"seed":20261101,"sheets":1},"dev":{"seed":20261101,"sheets":5},"sealed":{"seed":20261134,"sheets":12}},"fuzz":{"seed":20261134,"budget":{"forged":48,"honest":12,"noise":48}}}

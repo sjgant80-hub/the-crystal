@@ -1,0 +1,61 @@
+{
+ "witness": "v0.6",
+ "total": 567,
+ "killed": 563,
+ "clean": true,
+ "files": {
+  "src/grow.mjs": {
+   "total": 134,
+   "killed": 133,
+   "ignored": 1,
+   "clean": true
+  },
+  "src/lattice.mjs": {
+   "total": 61,
+   "killed": 60,
+   "ignored": 1,
+   "clean": true
+  },
+  "src/measure.mjs": {
+   "total": 53,
+   "killed": 53,
+   "ignored": 0,
+   "clean": true
+  },
+  "src/claims.mjs": {
+   "total": 46,
+   "killed": 44,
+   "ignored": 2,
+   "clean": true
+  },
+  "genome/cell.mjs": {
+   "total": 13,
+   "killed": 13,
+   "ignored": 0,
+   "clean": true
+  },
+  "src/bond.mjs": {
+   "total": 69,
+   "killed": 69,
+   "ignored": 0,
+   "clean": true
+  },
+  "src/fuzz.mjs": {
+   "total": 164,
+   "killed": 164,
+   "ignored": 0,
+   "clean": true
+  },
+  "src/stack.mjs": {
+   "total": 27,
+   "killed": 27,
+   "ignored": 0,
+   "clean": true
+  }
+ },
+ "nothingToMutate": {
+  "genome/io.mjs, judge.mjs, lane.mjs, health.mjs, tombstone.mjs": "the estate genome's hook template, byte for byte; gated in estate-genome (template/genome), exercised here by the birth check in CI",
+  "vendor/climb/**": "The Climb's kernels, byte for byte as its seal froze them; gated in the-climb (data/gates.json there) and compared with that repository on every push (scripts/vendor-climb.mjs --check)",
+  "page/gem.js": "the glass: it draws a record and decides nothing; its geometry and camera are tested (test/gem.test.mjs), its drawing is checked in a browser"
+ }
+}

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Crystal — watch a small AI's proof grow, step by checked step</title>
+<meta name="description" content="A crystal that grows in your browser. Every facet is one step a small AI model got right on your own GPU, checked by exact arithmetic. A step it gets wrong is split smaller; a step it cannot do shatters. Re-run it yourself. Nothing leaves your browser.">
+<meta name="theme-color" content="#02070c">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2302070c'/%3E%3Cpath d='M16 4 27 16 16 28 5 16z' fill='none' stroke='%235ef2e4' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:'Fraunces';src:url('vendor/fonts/fraunces/files/fraunces-latin-full-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
+@font-face{font-family:'Fraunces';src:url('vendor/fonts/fraunces/files/fraunces-latin-full-normal.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Hanken Grotesk';src:url('vendor/fonts/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2') format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url('vendor/fonts/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2') format('woff2');font-weight:100 800;font-display:swap}
+:root{--abyss:#02070c;--water:#04101a;--lume:#5ef2e4;--blue:#49b4ff;--violet:#a797ff;--amber:#ffbf78;--red:#ff6470;--ink:#e4f6f8;--ink-2:#a3c3cb;--ink-3:#7f9fa7;--panel:rgba(4,16,25,.86);--edge:rgba(94,242,228,.2);--display:'Fraunces','Iowan Old Style','Palatino Linotype',Georgia,serif;--body:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,'Cascadia Mono',Consolas,monospace;--gut:clamp(16px,5vw,72px);color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--abyss);color:var(--ink);font:400 16px/1.6 var(--body);overflow-x:hidden}
+a{color:var(--lume);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--lume);outline-offset:3px}
+code{font:500 .86em var(--mono);color:var(--lume);overflow-wrap:anywhere}
+#gem{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;touch-action:none;cursor:grab}
+.top{position:fixed;z-index:20;inset:0 0 auto 0;display:flex;align-items:center;gap:20px;padding:14px var(--gut);background:linear-gradient(180deg,rgba(2,7,12,.82),rgba(2,7,12,0));pointer-events:none}
+.top>*{pointer-events:auto}
+.mark{font:500 12px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--ink);text-decoration:none;white-space:nowrap}
+.top nav{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-end}
+.top nav a{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);text-decoration:none;padding:8px 0}
+.top nav a:hover{color:var(--lume)}
+main{position:relative;z-index:5;pointer-events:none}
+main>*{pointer-events:auto}
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:96px var(--gut) 28px;pointer-events:none}
+.hero>*{pointer-events:auto;max-width:560px}
+.kicker{font:500 11px/1.4 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);margin:0 0 10px}
+h1{font:400 clamp(44px,9vw,92px)/.98 var(--display);margin:0 0 14px;letter-spacing:-.01em;text-shadow:0 0 30px var(--abyss)}
+h1 em{font-style:italic;color:var(--lume)}
+.lead{margin:0 0 18px;color:var(--ink);text-shadow:0 0 14px var(--abyss),0 0 4px var(--abyss)}
+.row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+button{font:600 14px/1 var(--body);color:#012;background:var(--lume);border:0;padding:13px 20px;cursor:pointer;border-radius:2px}
+button:hover{filter:brightness(1.1)}
+button:disabled{opacity:.5;cursor:default}
+button.quiet{background:transparent;color:var(--ink);border:1px solid var(--edge)}
+.hint,.small{font:500 11.5px/1.5 var(--mono);color:var(--ink-2)}
+#status{font:500 12px/1.5 var(--mono);color:var(--ink-2);margin:12px 0 0;min-height:18px;text-shadow:0 0 10px var(--abyss)}
+.ledger{display:flex;flex-wrap:wrap;gap:8px 22px;margin:16px 0 8px;font:500 11.5px/1.3 var(--mono);letter-spacing:.06em;color:var(--ink-2);max-width:none}
+.ledger b{display:block;font:500 clamp(17px,2.6vw,24px)/1.1 var(--mono);color:var(--ink);letter-spacing:0}
+.ledger .bad b{color:var(--red)}
+.scrub{display:flex;align-items:center;gap:12px;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);max-width:520px}
+.scrub input{flex:1;accent-color:var(--lume)}
+.tags{font:italic 400 15px/1.5 var(--display);color:var(--ink-2);margin:14px 0 0}
+#tip{position:fixed;z-index:30;left:0;top:0;transform:translate(-999px,-999px);font:500 12px/1.4 var(--mono);color:var(--ink);background:rgba(2,7,12,.92);border:1px solid var(--edge);padding:7px 10px;max-width:min(340px,80vw);pointer-events:none}
+section.panel{background:var(--panel);border-top:1px solid var(--edge);padding:44px var(--gut)}
+section.panel>*{max-width:760px}
+h2{font:400 clamp(26px,4.4vw,38px)/1.1 var(--display);margin:0 0 14px}
+h2 em{font-style:italic;color:var(--lume)}
+h3{font:600 15px/1.3 var(--body);margin:22px 0 6px}
+ol,ul{padding-left:20px}
+li{margin:0 0 8px}
+details{border-top:1px solid var(--edge);padding:10px 0}
+details>summary{cursor:pointer;font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0}
+th,td{text-align:left;padding:7px 8px 7px 0;border-bottom:1px solid var(--edge);vertical-align:top}
+th{font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+td.num{font-family:var(--mono);white-space:nowrap}
+.pass{color:var(--lume)}.fail{color:var(--red);font-weight:600}.pend{color:var(--amber)}
+.wrap{overflow-x:auto}
+svg.law{width:100%;height:auto;max-width:760px}
+svg.law text{font:500 12px var(--mono);fill:var(--ink)}
+svg.law .m{fill:var(--ink-2)}
+footer{background:var(--abyss);border-top:1px solid var(--edge);padding:28px var(--gut) 40px;font:500 12px/1.7 var(--mono);color:var(--ink-2)}
+@media (max-width:640px){.top nav a:not(.keep){display:none}.hero{padding-bottom:20px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<canvas id="gem" role="img" aria-label="A crystal of octahedra. Each lit facet is one step the model got right; dark facets are steps never reached."></canvas>
+<header class="top">
+  <a class="mark" href="#top">The Crystal</a>
+  <nav aria-label="On this page"><a href="#start">Start</a><a href="#how">How it grows</a><a href="#stack">The watchers</a><a class="keep" href="#numbers">The numbers</a><a class="keep" href="#limits">What this does not prove</a><a href="#buyers">For buyers</a></nav>
+</header>
+<main>
+<section class="hero" id="top">
+  <p class="kicker">Grown from The Climb, as sealed</p>
+  <h1>Watch it <em>grow.</em></h1>
+  <p class="lead">Each lit facet is one step a small AI model got right, checked by exact arithmetic. A step it gets wrong is split into smaller steps. A step it still cannot do shatters, and whatever needed it stays dark. Nothing else is on the glass.</p>
+  <div class="row"><button id="grow" type="button">Grow it here</button><button id="play" class="quiet" type="button">Play the record</button><span class="hint">or press Enter · the model is about 880 MB, once</span></div>
+  <p id="status" aria-live="polite">not measured yet</p>
+  <div class="ledger" aria-label="What is on the glass">
+    <span><b data-bind="n.bonds">not measured yet</b>bonds</span>
+    <span><b data-bind="n.reused">not measured yet</b>set, not grown again</span>
+    <span class="bad"><b data-bind="n.dissolved">not measured yet</b>dissolved</span>
+    <span><b data-bind="n.depth">not measured yet</b>rounds deep</span>
+    <span><b data-bind="n.complete">not measured yet</b>crystals complete</span>
+  </div>
+  <label class="scrub"><span>Depth</span><input type="range" id="scrub" min="0" max="1000" value="1000" aria-label="Travel through the growth, from the seed to the last cell"></label>
+  <p class="tags">Don't trust us. Re-run it. · A small model that says "I can't tell." · Nothing leaves your browser.</p>
+</section>
+<div id="tip" role="status" aria-live="polite"></div>
+
+<section class="panel" id="start">
+  <h2>Start <em>here</em></h2>
+  <ol>
+    <li><b>Look.</b> Drag the crystal to turn it. Point at a facet to read the step it is. Move the Depth slider to travel from the seed out to the last cell that set.</li>
+    <li><b>Grow one yourself.</b> Press <b>Grow it here</b>, or Enter. The model runs in this tab on your own graphics chip, and a crystal grows from eight problems while you watch. <span id="device" class="small">Checking this device…</span></li>
+    <li><b>Check the record.</b> <button id="rejudge" class="quiet" type="button">Grow the published crystal again, with no model</button> <span id="rejudgeOut" class="small" aria-live="polite"></span></li>
+    <li><b>Attack the bond-check yourself.</b> <button id="attack" class="quiet" type="button">Make a new attack</button> <span id="attackOut" class="small" aria-live="polite"></span></li>
+    <li><b>Run the whole measurement.</b> <select id="runWhich" aria-label="Which set"><option value="sample">Sample: 8 problems</option><option value="dev">Dev: the 40 problems the build was tuned on</option><option value="sealed">Sealed: the 96 problems the claims are judged on</option></select> <button id="run" class="quiet" type="button">Run it</button> <button id="save" class="quiet" type="button" disabled>Save my run</button> <span id="runOut" class="small" aria-live="polite"></span></li>
+  </ol>
+</section>
+
+<section class="panel" id="how">
+  <h2>How it <em>grows</em></h2>
+  <p>A calculation is broken into cells. A cell is one operation on two numbers, such as <code>26 × 12</code>. Every cell meets the same law, and the law is the whole engine.</p>
+  <svg class="law" viewBox="0 0 760 200" role="img" aria-labelledby="lawT"><title id="lawT">The law for one cell: set if already held, bond if the model is right, split if it is wrong and there is something smaller, dissolve if there is not</title>
+    <g fill="none" stroke="rgba(94,242,228,.35)"><rect x="10" y="70" width="130" height="56"/><rect x="210" y="10" width="170" height="44"/><rect x="210" y="70" width="170" height="44"/><rect x="210" y="130" width="170" height="44"/><rect x="450" y="130" width="170" height="44"/><path d="M140 98H175M175 32V152M175 32H210M175 92H210M175 152H210M380 152H450"/></g>
+    <text x="75" y="94" text-anchor="middle">one cell</text><text x="75" y="112" text-anchor="middle" class="m">26 × 12</text>
+    <text x="295" y="30" text-anchor="middle">SET</text><text x="295" y="46" text-anchor="middle" class="m">already held: no call</text>
+    <text x="295" y="90" text-anchor="middle">BOND</text><text x="295" y="106" text-anchor="middle" class="m">model right: a facet</text>
+    <text x="295" y="150" text-anchor="middle">wrong</text><text x="295" y="166" text-anchor="middle" class="m">is there smaller?</text>
+    <text x="535" y="150" text-anchor="middle">SPLIT or DISSOLVE</text><text x="535" y="166" text-anchor="middle" class="m">smaller cells, or shards</text>
+    <text x="640" y="34" class="m">many cells are ready</text><text x="640" y="50" class="m">in each round;</text><text x="640" y="66" class="m">the rounds are depth</text>
+  </svg>
+  <ol>
+    <li><b>Seed.</b> The crystal starts from steps that were already checked: the ones The Climb's sealed run verified. <span data-bind="h.seed">not measured yet</span></li>
+    <li><b>Bond.</b> The model is asked one cell. If its whole reply is one plain statement of that cell's value, exactly right (<code>26 × 12 = 312</code>, or <code>312 = 26 × 12</code>, or <code>312</code>), the cell bonds and a facet lights. A second line, a word, a unit or other working in the reply, and it does not bond. The value is the model's own; the check only says yes or no.</li>
+    <li><b>Split.</b> If the reply does not bond, the cell is replaced by smaller cells made from its own numbers: <code>26 × 12</code> becomes <code>26 × 10 + 26 × 2</code>. Those are asked in the next round.</li>
+    <li><b>Dissolve.</b> If the reply does not bond and there is nothing smaller, the cell shatters. Whatever needed it stays dark, and the crystal does not complete.</li>
+    <li><b>Depth.</b> Every cell that is ready is asked in the same round. Rounds are the fourth axis: a cell's depth is the round it set in, drawn as distance from the centre and as colour, green-blue near the seed and violet at the deepest.</li>
+  </ol>
+  <p>Two things follow from the law alone. A crystal that completes is right, because every step from the problem down to single cells bonded and a bond is exact arithmetic. And growth always stops, because a cell is asked once and each split is strictly smaller. <span data-bind="h.law">not measured yet</span></p>
+</section>
+
+<section class="panel" id="stack">
+  <h2>The <em>watchers</em></h2>
+  <p>The whole build is one stack of seven layers. Each layer watches the one beneath it and catches what that one cannot see in itself. The crystal on the glass is what these layers put out, and nothing else.</p>
+  <p>A stack of watchers only works if it ends, at both ends. <b>The floor</b> is depth 0: nothing is kept that does not come down to a step the model was asked and a check, which is code, bonded. <b>The ceiling</b> is depth 6: a person. Nothing on this page changes the model, and if a later build does, each change stops at a person first. Every layer between has a limit it cannot run past, written in its row.</p>
+  <div class="wrap" id="stackTable">not measured yet</div>
+  <p class="small">Depth 4 was built before anything was grown on depth 1: a leak in the check that makes bonds would be copied into every cell above it. Depth 5 is not built. It is the one layer that would change the floor everything else stands on.</p>
+</section>
+
+<section class="panel" id="numbers">
+  <h2>The <em>numbers</em></h2>
+  <p class="small" data-bind="h.source">not measured yet</p>
+  <div class="wrap" id="claimsTable">not measured yet</div>
+  <details><summary>The floor: which kinds of step the model gets right</summary><div class="wrap" id="floor">not measured yet</div></details>
+  <details><summary>The bond-check, attacked</summary><div class="wrap" id="attackTable">not measured yet</div></details>
+  <details><summary>What it cost</summary><div id="cost">not measured yet</div></details>
+</section>
+
+<section class="panel" id="limits">
+  <h2>What this does <em>not</em> prove</h2>
+  <ul>
+    <li><b>It is arithmetic.</b> The finish line cannot be argued with, and that is why it was chosen. Nothing here measures the law on another kind of work.</li>
+    <li><b>The model did not get smarter.</b> It is the same small model at the last cell as at the first. What changed is what it was asked: one small step at a time, each checked.</li>
+    <li><b>The checker holds the calculation.</b> It knows what the problem asks, pairs the numbers, and makes the splits. The model does every step. For your own work, that bookkeeping is the part you would write.</li>
+    <li><b>Parallel is a property of the law, not of this machine.</b> Cells of one round do not depend on each other and could be asked side by side. On one small GPU they are asked one after another. The page reports how many were ready at once; it does not claim a speed it did not measure.</li>
+    <li><b>Depth is not a fourth dimension of space.</b> It is the count of rounds, drawn as distance and colour.</li>
+    <li><b>The attack on the bond-check is evidence, not a proof.</b> It makes many forged replies, many ways, and a second reader written apart from the bond-check agrees with it on every one. That shows no leak was found by this attack. It does not show that no forged reply exists.</li>
+    <li><b>Depth 5 is not built.</b> Nothing here trains the model on what the crystal proved. The wall on this page is where this model, as it is, stops.</li>
+    <li><b>A dark crystal is a result.</b> Where a cell dissolved, the model could not do a step that has nothing smaller. Those problems are on the glass, unlit, and in the count.</li>
+  </ul>
+</section>
+
+<section class="panel" id="blueprint">
+  <h2>How it is <em>built</em></h2>
+  <div class="wrap"><table><thead><tr><th>part</th><th>what it is</th><th>status</th></tr></thead><tbody>
+    <tr><td>The seed</td><td>The Climb's kernels, byte for byte as its seal froze them: exact arithmetic, the checker, the planner, the tracker, the memory (<code>vendor/climb/</code>).</td><td data-bind="bp.seed">not measured yet</td></tr>
+    <tr><td>The growth law</td><td>Set, bond, split, dissolve, round by round (<code>src/grow.mjs</code>).</td><td data-bind="bp.grow">not measured yet</td></tr>
+    <tr><td>The lattice</td><td>Where each cell stands: a diamond-type lattice, the memory's twelve chambers for direction, depth for distance (<code>src/lattice.mjs</code>).</td><td data-bind="bp.lattice">not measured yet</td></tr>
+    <tr><td>The bond-check</td><td>The one thing that can say a cell has bonded: one fixed shape of reply, exact fractions, 200 characters at most (<code>src/bond.mjs</code>).</td><td data-bind="bp.bond">not measured yet</td></tr>
+    <tr><td>The attack on it</td><td>Twenty-three ways of forging a reply, honest replies written every allowed way, noise, a second reader with its own arithmetic, and twelve leaky readers it must catch (<code>src/fuzz.mjs</code>).</td><td data-bind="bp.fuzz">not measured yet</td></tr>
+    <tr><td>The numbers</td><td>Every count, every verdict and what each watcher put out (<code>src/measure.mjs</code>, <code>src/claims.mjs</code>, <code>src/stack.mjs</code>).</td><td data-bind="bp.measure">not measured yet</td></tr>
+    <tr><td>The glass</td><td>WebGL2, written for this page: instanced octahedra, light split by colour, bloom at a quarter size (<code>page/gem.js</code>). It draws a record and decides nothing.</td><td>built</td></tr>
+    <tr><td>The model</td><td>Llama 3.2 1B Instruct at 4 bits, run by WebLLM 0.2.79 on WebGPU, always picking its likeliest word.</td><td>not part of this repository</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="panel" id="buyers">
+  <h2>For your <em>business</em></h2>
+  <p><b>What it is.</b> A way to get multi-step work out of a small model you run yourself, with a proof for every result it gives and a plain "could not" for every result it does not. <span data-bind="b.what">not measured yet</span></p>
+  <details><summary>Where it fits, and where it does not</summary>
+    <p>It fits work that breaks into steps a program can check: reconciling figures, unit conversions through a chain, totals that must add up, any calculation with an audit trail. It does not fit judgement, open questions, or anything with no checker. If a step cannot be checked, it cannot bond.</p></details>
+  <details><summary>For each role</summary><ul>
+    <li><b>Chief executive.</b> The system cannot hand you a finished answer that is wrong: it finishes right or it says where it stopped. Both are counted on this page.</li>
+    <li><b>Finance.</b> The cost is small model calls on hardware you own. <span data-bind="b.cost">not measured yet</span> There is no charge per question.</li>
+    <li><b>Operations.</b> Every result carries its steps. A dark crystal names the exact cell that failed, so a person picks up from there, not from the beginning.</li>
+    <li><b>Technology and security.</b> One page, no server, no account, no key. The model and the checker run in the browser. The model's files come from the public WebLLM library and are not pinned by hash here, which is a limit stated plainly.</li>
+  </ul></details>
+  <details><summary>Rolling it out</summary><ol>
+    <li>Pick one job whose steps a program can check.</li><li>Write the check for a single step. It must never be a model.</li><li>Write how a failed step splits into smaller ones, and what the smallest steps are.</li><li>Run your own cases and count: complete, dark, calls.</li><li>Keep the dark ones. They show where a person or a larger model is still needed.</li>
+  </ol></details>
+  <details><summary>Security, data and ownership</summary>
+    <p>A problem you run is handled in the tab; the page makes no request while it works, and the count is measured by the browser. Your runs are kept in this browser's storage so a long run can resume, and clearing site data removes them. MIT licence: run it, change it, ship it. Supplied by <a href="https://www.ai-nativesolutions.com">AI Native Solutions</a>; support is agreed per deployment, in each deployment's agreement.</p></details>
+  <details><summary>Risks, answered straight</summary><ul>
+    <li><b>"It is slow."</b> Each call is small, and there are many. <span data-bind="b.slow">not measured yet</span></li>
+    <li><b>"It only does sums."</b> Yes, here. The law needs a step checker and a way to split; this page shows one.</li>
+    <li><b>"Some never finish."</b> Yes, and they are shown. <span data-bind="b.dark">not measured yet</span></li>
+  </ul></details>
+  <p><b>The case for the board.</b> Most of the cost of AI in real work is the wrong answer nobody noticed. This is a small model, on hardware you own, that cannot give one without it showing. <span data-bind="b.board">not measured yet</span></p>
+  <div id="walk">not measured yet</div>
+</section>
+</main>
+<footer>
+  The Crystal · built by Kar · MIT licence (holder Simon Gant) · supplied by <a href="https://www.ai-nativesolutions.com">AI Native Solutions</a><br>
+  Powered by the Konomi architecture, created by Thomas Frumkin.<br>
+  AI you own. Proof you can re-run. · <a href="https://github.com/sjgant80-hub/the-crystal">source</a> · <a href="CLAIMS.md">claims</a> · <a href="https://sjgant80-hub.github.io/the-climb/">The Climb, the seed it grew from</a>
+</footer>
+<script type="module">
+/*KERNELS*/
+/*APP*/
+</script>
+</body>
+</html>

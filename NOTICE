@@ -1,0 +1,12 @@
+The Crystal: code under the MIT licence (LICENSE), copyright Simon Gant.
+
+- vendor/climb/ is The Climb (sjgant80-hub/the-climb), MIT, copyright Simon Gant: its kernels byte for byte at the
+  commit that sealed them, recorded with their hashes in vendor/climb/PROVENANCE.json. Inside it, vendor/memory.mjs
+  is the estate's twelve-chamber memory kernel and vendor/stats.mjs the exact McNemar test, as The Climb vendors them.
+- data/seed.json is derived from The Climb's published sealed run (scripts/make-seed.mjs). The problems are made by
+  code; nothing in them describes a real person or company.
+- vendor/fonts/ holds Fraunces, Hanken Grotesk and JetBrains Mono (variable, latin), each under the SIL Open Font
+  Licence 1.1; each folder carries its licence. They are served from this page so that no font host is called.
+- The model is not part of this repository. The page fetches Llama 3.2 1B Instruct (Meta, Llama 3.2 Community Licence)
+  from the MLC project's published build when the viewer presses the button, and runs it with WebLLM 0.2.79
+  (Apache 2.0).

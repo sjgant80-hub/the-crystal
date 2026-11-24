@@ -1,0 +1,22 @@
+[
+ {
+  "mutation": "< → <=",
+  "snippet": "for (let guard = 0; guard < 64 && LEFT.atoms(at).some((a) => a.canon === cell.canon); guar",
+  "reason": "a limit that no calculation reaches: the loop ends when the cell no longer stands in the calculation, and a calculation of at most 200 tokens cannot hold one step in 64 places. The limit is there so that this loop has an end of its own whatever the vendored rewriting does; 64 or 65 turns give the same result on every input a test can make"
+ },
+ {
+  "mutation": ">= → >",
+  "snippet": "if (s.shell - floor >= bestScore) break;",
+  "reason": "the early way out only saves time. A place whose distance from the floor alone equals the best score can at best equal it, and an equal score never replaces the best (the comparison below is strict), so leaving one shell later takes the same place. test/lattice.test.mjs checks 900 seats against a search of every place with no early way out"
+ },
+ {
+  "mutation": "> → >=",
+  "snippet": "out.push(one.compared === 0 ? pending('K4', 'needs the crystal and one try on the same sea",
+  "reason": "the two differ only when exactly as many problems went each way, and then the exact McNemar p is 1, so the bar fails on the second condition either way"
+ },
+ {
+  "mutation": "< → <=",
+  "snippet": "out.push(one.compared === 0 ? pending('K4', 'needs the crystal and one try on the same sea",
+  "reason": "the two differ only when p is exactly 0.05. An exact McNemar p is a whole number over a power of two, and one twentieth is not such a number, so p is never exactly 0.05"
+ }
+]

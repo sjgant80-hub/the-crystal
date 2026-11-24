@@ -1,0 +1,53 @@
+{
+ "v": "the-crystal-seed/1",
+ "note": "The Climb's kernels as its seal froze them, byte for byte; every hash here is the hash The Climb's own SEAL.json gives the file",
+ "repo": "sjgant80-hub/the-climb",
+ "commit": "9eafa1d1be6d1bcbd9815696f75a90c0f61b8159",
+ "sealSha256": "4ddd3640d389128bf479ab03948f74ee10ca9bb5c62abf323748cd9e6be1d8df",
+ "files": [
+  {
+   "path": "src/exact.mjs",
+   "sha256": "e411c14b1ab85cc86bc923630b422272ecd2f488c483e332fd5bc1e7a24af6ae"
+  },
+  {
+   "path": "src/checker.mjs",
+   "sha256": "b72c875d31612de8b563dcf2e6448a55d6356c9c6ceb6202ff6cc43963fef25c"
+  },
+  {
+   "path": "src/plan.mjs",
+   "sha256": "c8ff986dff5795025037d084abced104c50a2d500517a9cac3fa147751c72d52"
+  },
+  {
+   "path": "src/left.mjs",
+   "sha256": "fb2cf59d0337a2ccd88971a6db3001cbedeecf47e21ebfd85b79e2ce2db86c1f"
+  },
+  {
+   "path": "src/keep.mjs",
+   "sha256": "ab63d72db9fb39f85d33014fb7d79053d68bf2ec7e8fee8c5147cadd2b24ede9"
+  },
+  {
+   "path": "src/tasks.mjs",
+   "sha256": "52fe40428ae5443dc846b8c31913d797a35f73f695b52e0f1ee96803ce320fa3"
+  },
+  {
+   "path": "src/loop.mjs",
+   "sha256": "ae6ff556460f182ac15861a9b18cfdc6e4974c6476e373e32a817faf90ef67d7"
+  },
+  {
+   "path": "src/score.mjs",
+   "sha256": "b303cc72ed4825581bfcae6c3be6202570799f05584689370e986113a21bc9a2"
+  },
+  {
+   "path": "src/sha256.mjs",
+   "sha256": "07bc007e05bb6add2ed6cafb46f90e4a1b49c37892d6b2dd5124414f3a36994e"
+  },
+  {
+   "path": "vendor/memory.mjs",
+   "sha256": "cc39af7f489e6ed325fd6c61f9e7f9a47d03abfc60b408c4a7807d13df976f3e"
+  },
+  {
+   "path": "vendor/stats.mjs",
+   "sha256": "c8b36932ceeacc8a2c48ebf98c00a103c29708cd340b8e9edf81f218016cbe5c"
+  }
+ ]
+}

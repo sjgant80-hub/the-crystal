@@ -1,0 +1,7 @@
+{
+ "note": "the runs the page shows; null = not published yet",
+ "sealed": null,
+ "dev": "data/runs/dev.json",
+ "seed": "data/seed.json",
+ "walk": null
+}

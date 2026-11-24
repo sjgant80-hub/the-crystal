@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>The Crystal: renderer harness</title>
+<style>html,body{margin:0;height:100%;background:#02070c;color:#e4f6f8;font:13px ui-monospace,Consolas,monospace}canvas{position:fixed;inset:0;width:100%;height:100%;display:block}#out{position:fixed;left:12px;bottom:12px;white-space:pre-wrap;max-width:60ch}</style></head>
+<body><canvas id="gem"></canvas><pre id="out">starting</pre>
+<script type="module">
+// A builder's harness, not the page: it grows crystals with a SCRIPTED stand-in for the model (right on small steps
+// only, wrong on the rest) so the renderer can be looked at without a model. Nothing here is a measurement.
+import { createGem } from '../page/gem.js';
+import G from '../src/grow.mjs';
+import LAT from '../src/lattice.mjs';
+import X from '../vendor/climb/src/exact.mjs';
+import T from '../vendor/climb/src/tasks.mjs';
+const out = (t) => { document.getElementById('out').textContent = t; };
+const val = (t) => X.show(X.evaluate(t).value);
+const SMALL = ['digit × digit', 'digit × digit, with noughts', 'digit + digit', 'sum, places apart', 'half', 'division', 'two digits × one'];
+const stand = async (m) => { const cell = m[m.length - 1].content, k = G.klass(cell), bad = cell.length % 7 === 0; return { text: `${cell} = ${SMALL.includes(k) && !bad ? val(cell) : X.show(X.add(X.evaluate(cell).value, X.num('10')))}`, ms: 1 }; };
+try {
+  const gem = createGem(document.getElementById('gem'));
+  const run = await G.run(T.set(20261101, 3), stand, { seed: ['21 × 21 = 441', '26 × 7 = 182', '15 × 15 = 225'], mem: { probes: 12 } });
+  const L = LAT.lattice(['21 × 21 = 441', '26 × 7 = 182', '15 × 15 = 225'], run.records);
+  gem.setLattice(L); gem.setTime(L.span + 5);
+  window.__gem = { gem, L, run };
+  out(`cells ${L.cells.length} · links ${L.links.length} · span ${L.span} · depth ${L.depth}\n${JSON.stringify(L.counts)}`);
+} catch (e) { out('ERROR ' + (e && e.stack || e)); window.__gemError = String(e && e.stack || e); }
+</script></body></html>

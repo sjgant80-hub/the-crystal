@@ -1,0 +1,27 @@
+{
+ "v": "the-crystal-seal/1",
+ "note": "every file that can change a result, frozen before the sealed problems were run; a sealed run counts only when its sealSha256 equals the SHA-256 of this file",
+ "files": {
+  "src/bond.mjs": "e79c9cb111eb8b72b01698e2560ad5b210f8200ff66d9765bf24e82a5c97374a",
+  "src/claims.mjs": "fe4109f68982af9f36ef2953e3e0af4d643ec1caf72bc541b7543c8f1d87e3e3",
+  "src/fuzz.mjs": "ff8f99e798a42923760bfe5d5e18a633328ce378f20dd77801b809c09a617cad",
+  "src/grow.mjs": "e6d52c07312f8d2861c4521861f20848ed3b670ff09590270d10ceaea0ac2d1c",
+  "src/lattice.mjs": "9187f5e71569b1ac5d8a85e7a4940ed6803eb8629827dde5039cd5109641a21a",
+  "src/measure.mjs": "bbfc6db6c9bc132f1003e3672a8020e0e7d36dd2d21dd324388ea65f538e428b",
+  "src/stack.mjs": "c03d7e4fe99f1bdadf365fafcc4835d12287c6a34f70e0737467e91a3720001a",
+  "vendor/climb/src/checker.mjs": "b72c875d31612de8b563dcf2e6448a55d6356c9c6ceb6202ff6cc43963fef25c",
+  "vendor/climb/src/exact.mjs": "e411c14b1ab85cc86bc923630b422272ecd2f488c483e332fd5bc1e7a24af6ae",
+  "vendor/climb/src/keep.mjs": "ab63d72db9fb39f85d33014fb7d79053d68bf2ec7e8fee8c5147cadd2b24ede9",
+  "vendor/climb/src/left.mjs": "fb2cf59d0337a2ccd88971a6db3001cbedeecf47e21ebfd85b79e2ce2db86c1f",
+  "vendor/climb/src/loop.mjs": "ae6ff556460f182ac15861a9b18cfdc6e4974c6476e373e32a817faf90ef67d7",
+  "vendor/climb/src/plan.mjs": "c8ff986dff5795025037d084abced104c50a2d500517a9cac3fa147751c72d52",
+  "vendor/climb/src/score.mjs": "b303cc72ed4825581bfcae6c3be6202570799f05584689370e986113a21bc9a2",
+  "vendor/climb/src/sha256.mjs": "07bc007e05bb6add2ed6cafb46f90e4a1b49c37892d6b2dd5124414f3a36994e",
+  "vendor/climb/src/tasks.mjs": "52fe40428ae5443dc846b8c31913d797a35f73f695b52e0f1ee96803ce320fa3",
+  "vendor/climb/vendor/memory.mjs": "cc39af7f489e6ed325fd6c61f9e7f9a47d03abfc60b408c4a7807d13df976f3e",
+  "vendor/climb/vendor/stats.mjs": "c8b36932ceeacc8a2c48ebf98c00a103c29708cd340b8e9edf81f218016cbe5c",
+  "data/settings.json": "e4dbe24d70a01c54acb1a064a8078cd292464ed2fdda7142cc710f8e5dd61763",
+  "data/seed.json": "beba0bb3d866b2575ecc017c6fdf249eee0d1c177de79d0e61282acecd9fa16e",
+  "CLAIMS.md": "96ad6d6e1cdef4e769d018c86983a9a25849e44e82eeb7dc4f92b2215b6da9be"
+ }
+}
