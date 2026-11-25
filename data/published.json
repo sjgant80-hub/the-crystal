@@ -3,5 +3,5 @@
  "sealed": "data/runs/sealed.json",
  "dev": "data/runs/dev.json",
  "seed": "data/seed.json",
- "walk": null
+ "walk": "data/walk.json"
 }

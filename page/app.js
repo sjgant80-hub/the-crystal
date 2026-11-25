@@ -86,7 +86,7 @@ function render() {
   bind('bp.seed', S.data.provenance ? `the-climb at ${esc(String(S.data.provenance.commit).slice(0, 7))}, ${S.data.provenance.files.length} files, each with the hash its seal gives it` : NM);
   bind('b.what', m ? `In ${esc(what)} it completed ${m.complete - m.wrong} of ${m.grown} problems, none of them wrong, and left ${m.dark} dark.` : 'The result is not measured yet.');
   bind('b.cost', m ? `${(m.calls / m.grown).toFixed(1)} small calls per problem in ${esc(what)}.` : 'The cost is not measured yet.');
-  bind('b.slow', m ? `${m.seconds.toFixed(0)} s of model time for ${m.grown} problems on ${esc(run.gpu || 'this GPU')}, asked one cell at a time.` : 'The time is not measured yet.');
+  bind('b.slow', m ? `${m.seconds.toFixed(0)} s in all spent waiting on the model, for ${m.grown} problems on ${esc(run.gpu || 'this GPU')}, asked one cell at a time.` : 'The time is not measured yet.');
   bind('b.dark', m ? `${m.dark} of ${m.grown} in ${esc(what)}.` : 'The count is not measured yet.');
   bind('b.board', m ? `In ${esc(what)}: ${m.complete - m.wrong} of ${m.grown} finished, ${m.wrong} finished wrong, ${m.dark} stopped and said where.` : 'The result is not measured yet.');
   const w = S.data.walk;

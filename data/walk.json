@@ -1,0 +1,44 @@
+{
+ "v": "buyer-walk/1",
+ "at": "2026-11-25",
+ "model": "qwen2.5:7b on this machine's CPU, through Ollama",
+ "note": "A simulated buyer walk: a local 7B model played four buyers and read this page's text cold, part by part, one buyer at a time (16 readings). It is a model's first-pass audit, not a customer's opinion. Kar checked every gap it raised against the page and the page at phone width (375 px). Most of what it raised was one thing: this page used its own words (cell, shatters, stays dark, round, The Climb, depth 6) before saying what they mean. The real gaps are below, each with what was changed. Not changed: the claim texts themselves (\"The Climb did not bring home\"), which are sealed in CLAIMS.md and stay as they were registered; the list of words now explains them.",
+ "personas": [
+  {
+   "who": "The CFO of a 400-person firm",
+   "verdict": "could follow the numbers, but not the words that carried them",
+   "gaps": [
+    { "gap": "\"A step it still cannot do shatters, and whatever needed it stays dark\"", "fix": "a list of the words this page uses now opens Start here: a cell that is wrong and cannot be split smaller shatters, and every step that needed it is left out, so that problem gets no answer rather than a wrong one" },
+    { "gap": "\"The Climb brought home none that the crystal did not complete\": what is The Climb?", "fix": "the list now says The Climb is the build before this one, and that to bring a problem home is to get it right" },
+    { "gap": "\"576 cells, seed 20261134\" cannot be read", "fix": "the list now defines a cell (one small sum the model is asked) and a seed (the number that fixes every random choice, so anyone can make the same attack again)" },
+    { "gap": "\"s of model time\" is not defined", "fix": "now \"s in all spent waiting on the model\"" }
+   ]
+  },
+  {
+   "who": "The CTO who also owns security",
+   "verdict": "wanted the limits explained, not only stated",
+   "gaps": [
+    { "gap": "\"not pinned by hash\": what is the implication?", "fix": "it now says the page does not check the downloaded model files against a fixed fingerprint, so a changed file upstream would not be caught here" },
+    { "gap": "\"Depth 5 is not built\": what is depth 5?", "fix": "now \"Depth 5, retraining the model, is not built\"; the list explains the depths 0 to 6" },
+    { "gap": "\"gated\" in the blueprint is not explained", "fix": "the blueprint now opens with what a mutation gate is, and what an equivalent change is" }
+   ]
+  },
+  {
+   "who": "The COO who runs the teams that would use it",
+   "verdict": "wanted to know what a person does, and what a round is",
+   "gaps": [
+    { "gap": "\"The ceiling is depth 6: a person\"", "fix": "the list now says the depths are layers of checking from the step itself up to a person, and nothing changes the model without a person's yes" },
+    { "gap": "\"the widest round had 8 cells ready at once\": what is a round?", "fix": "the list now says a round is one set of cells asked together" },
+    { "gap": "\"The law needs a step checker and a way to split\": which law?", "fix": "now: the way it grows (check every step, split what fails) works wherever code can check a step and break a failed one into smaller ones" }
+   ]
+  },
+  {
+   "who": "The owner-manager of a 12-person business, no technical staff",
+   "verdict": "lost on \"bond-check\", \"harness\" and \"leak\" in the watchers",
+   "gaps": [
+    { "gap": "\"bond-check\", \"bonded\", \"harness\", \"leak\" are never explained", "fix": "the list now defines a bond, the bond-check, a harness, a second reader and a planted leak" },
+    { "gap": "the run selector and the depth slider were too small to tap on a phone (18 px and 16 px tall)", "fix": "both are now at least 32 px tall; nothing on the page scrolls sideways at 375 px" }
+   ]
+  }
+ ]
+}
