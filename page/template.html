@@ -77,7 +77,7 @@ footer{background:var(--abyss);border-top:1px solid var(--edge);padding:28px var
 <canvas id="gem" role="img" aria-label="A crystal of octahedra. Each lit facet is one step the model got right; dark facets are steps never reached."></canvas>
 <header class="top">
   <a class="mark" href="#top">The Crystal</a>
-  <nav aria-label="On this page"><a href="#start">Start</a><a href="#how">How it grows</a><a href="#stack">The watchers</a><a class="keep" href="#numbers">The numbers</a><a class="keep" href="#limits">What this does not prove</a><a href="#buyers">For buyers</a></nav>
+  <nav aria-label="On this page"><a href="#start">Start</a><a href="#how">How it grows</a><a href="#stack">The watchers</a><a class="keep" href="#numbers">The numbers</a><a class="keep" href="#limits">What this does not prove</a><a href="#buyers">For buyers</a><a href="#paper">White paper</a></nav>
 </header>
 <main>
 <section class="hero" id="top">
@@ -201,6 +201,17 @@ footer{background:var(--abyss);border-top:1px solid var(--edge);padding:28px var
   </ul></details>
   <p><b>The case for the board.</b> Most of the cost of AI in real work is the wrong answer nobody noticed. This is a small model, on hardware you own, that cannot give one without it showing. <span data-bind="b.board">not measured yet</span></p>
   <div id="walk">not measured yet</div>
+</section>
+
+<section class="panel" id="paper">
+  <h2>White <em>paper</em>: checked to the smallest step</h2>
+  <p><b>The problem.</b> The Climb showed that a small model gets further when code checks each line of its working. But a line was its smallest unit: a wrong line was worked again whole, and a problem the model could not hold in one reply stayed out of reach however many passes it was given.</p>
+  <p><b>The idea.</b> Take the check down to the smallest unit there is: one small sum the model is asked at a time, a cell. A cell that bonds is exact and is never asked again. One that fails is split into strictly smaller cells. One that fails and cannot be split shatters, and whatever needed it gets no answer. So a problem that completes is right by construction: every cell under it was checked by exact arithmetic. Cells that do not depend on each other form rounds, and could be asked side by side.</p>
+  <p><b>How the check is trusted.</b> The bond-check is the floor everything stands on, so it was attacked before anything was grown on it: forged replies of many kinds, a second reader written apart that must rule the same way, and twelve copies of the check with one leak planted in each, which the harness had to find. Each layer above it is a small module with a hard limit, and each is mutation-gated.</p>
+  <p><b>What this page tests.</b> Whether growing by single checked cells completes more sealed problems than the same model answering once; whether, on the hardest problems that carry a calculation, it completes ones The Climb's loop did not; and whether any completed problem is wrong. The problems were sealed and the claims written down before the run; the numbers above show each one's result.</p>
+  <p><b>What it does not show.</b> That it reaches every problem: a step the model cannot do even at the smallest size is a wall, and the page shows it in red. That the model got better: nothing here trains it; that would be depth 5, which is not built.</p>
+  <p><b>The one rule.</b> A crystal that completes is right, because every cell under it bonded; one that does not complete gives no answer, never a wrong one.</p>
+  <p class="small">The records: <a href="data/runs/sealed.json">the sealed run</a>, <a href="data/runs/dev.json">the dev run</a>, <a href="data/gates.json">the mutation gates</a>, <a href="CLAIMS.md">the claims</a>, <a href="SEAL.md">the seal</a>.</p>
 </section>
 </main>
 <footer>
