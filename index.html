@@ -9,82 +9,234 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2302070c'/%3E%3Cpath d='M16 4 27 16 16 28 5 16z' fill='none' stroke='%235ef2e4' stroke-width='2'/%3E%3C/svg%3E">
 <style>
+/* house.css — the AI Native house standard: one token sheet, one kit. Every page is built from these and nothing else.
+   HERO · RECEIPTS · THE STACK · THE GLASS · HONEST EXPANDER. The law of the page: the loudest true number leads, every
+   caveat waits behind a click, and no section is prose. Fonts are the house's three faces, served from the page. */
 @font-face{font-family:'Fraunces';src:url('vendor/fonts/fraunces/files/fraunces-latin-full-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
 @font-face{font-family:'Fraunces';src:url('vendor/fonts/fraunces/files/fraunces-latin-full-normal.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
 @font-face{font-family:'Hanken Grotesk';src:url('vendor/fonts/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2') format('woff2');font-weight:100 900;font-display:swap}
 @font-face{font-family:'JetBrains Mono';src:url('vendor/fonts/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2') format('woff2');font-weight:100 800;font-display:swap}
-:root{--abyss:#02070c;--water:#04101a;--lume:#5ef2e4;--blue:#49b4ff;--violet:#a797ff;--amber:#ffbf78;--red:#ff6470;--ink:#e4f6f8;--ink-2:#a3c3cb;--ink-3:#7f9fa7;--panel:rgba(4,16,25,.86);--edge:rgba(94,242,228,.2);--display:'Fraunces','Iowan Old Style','Palatino Linotype',Georgia,serif;--body:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,'Cascadia Mono',Consolas,monospace;--gut:clamp(16px,5vw,72px);color-scheme:dark}
+:root{color-scheme:dark;--bg:#02070c;--bg2:#060e18;--panel:#081320;--ink:#e9f2f6;--soft:#aebecb;--muted:#6f8698;--cyan:#49e8c8;--cyan-dim:#1f6a60;--gold:#ffcf6a;--red:#ff6b6b;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.055);--display:'Fraunces',Georgia,serif;--sans:'Hanken Grotesk',system-ui,-apple-system,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--gut:max(20px,env(safe-area-inset-left,0px));--gutr:max(20px,env(safe-area-inset-right,0px))}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--abyss);color:var(--ink);font:400 16px/1.6 var(--body);overflow-x:hidden}
-a{color:var(--lume);text-underline-offset:3px}
-:focus-visible{outline:2px solid var(--lume);outline-offset:3px}
-code{font:500 .86em var(--mono);color:var(--lume);overflow-wrap:anywhere}
-#gem{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;touch-action:none;cursor:grab}
-.top{position:fixed;z-index:20;inset:0 0 auto 0;display:flex;align-items:center;gap:20px;padding:14px var(--gut);background:linear-gradient(180deg,rgba(2,7,12,.82),rgba(2,7,12,0));pointer-events:none}
-.top>*{pointer-events:auto}
-.mark{font:500 12px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--ink);text-decoration:none;white-space:nowrap}
-.top nav{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-end}
-.top nav a{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);text-decoration:none;padding:8px 0}
-.top nav a:hover{color:var(--lume)}
-main{position:relative;z-index:5;pointer-events:none}
-main>*{pointer-events:auto}
-.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:96px var(--gut) 28px;pointer-events:none}
-.hero>*{pointer-events:auto;max-width:560px}
-.kicker{font:500 11px/1.4 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);margin:0 0 10px}
-h1{font:400 clamp(44px,9vw,92px)/.98 var(--display);margin:0 0 14px;letter-spacing:-.01em;text-shadow:0 0 30px var(--abyss)}
-h1 em{font-style:italic;color:var(--lume)}
-.lead{margin:0 0 18px;color:var(--ink);text-shadow:0 0 14px var(--abyss),0 0 4px var(--abyss)}
-.row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-button{font:600 14px/1 var(--body);color:#012;background:var(--lume);border:0;padding:13px 20px;cursor:pointer;border-radius:2px}
-button:hover{filter:brightness(1.1)}
-button:disabled{opacity:.5;cursor:default}
-button.quiet{background:transparent;color:var(--ink);border:1px solid var(--edge)}
-.hint,.small{font:500 11.5px/1.5 var(--mono);color:var(--ink-2)}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{line-height:1.5;font-size:16px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gutr)}
+.mono{font-family:var(--mono)}
+em{font-style:italic;font-family:var(--display);font-weight:600}
+code{font:500 .88em var(--mono);color:var(--cyan);overflow-wrap:anywhere}
+.pass{color:var(--cyan)}.fail{color:var(--red)}.pend{color:var(--gold)}.dim{color:var(--muted)}
+
+/* HERO: the crystal behind the headline */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:radial-gradient(120% 90% at 70% 18%,#0a1826 0%,var(--bg) 58%)}
+#crystal{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+.hero-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(2,7,12,.78) 0%,rgba(2,7,12,.34) 46%,rgba(2,7,12,0) 70%),radial-gradient(130% 110% at 50% 42%,transparent 50%,rgba(2,6,12,.7) 100%)}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-block:12vh;pointer-events:none}
+.hero .wrap>*{pointer-events:auto}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);margin:0}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(44px,9vw,104px);line-height:.98;letter-spacing:-.02em;margin:18px 0 0;text-wrap:balance;max-width:14ch}
+h1 em{color:var(--cyan)}
+.sub{font-size:clamp(16px,2.3vw,21px);color:var(--soft);max-width:46ch;margin:26px 0 0;line-height:1.55}
+.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13.5px;letter-spacing:.02em;padding:13px 20px;min-height:46px;border-radius:999px;text-decoration:none;transition:.18s ease;white-space:nowrap;cursor:pointer;border:1px solid transparent;background:none;color:var(--ink)}
+.btn.primary{background:var(--cyan);color:#021310;font-weight:700}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px -12px var(--cyan)}
+.btn.ghost{border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn:disabled{opacity:.5;cursor:default;transform:none}
+.facet{position:absolute;z-index:3;left:var(--gut);bottom:22px;font:500 12px/1.5 var(--mono);color:var(--soft);max-width:min(560px,calc(100vw - 40px));min-height:18px;pointer-events:none}
+.facet b{color:var(--ink);font-weight:500}
+
+/* SECTIONS */
+section{position:relative;z-index:2}
+.pad{padding-block:clamp(72px,11vh,140px)}
+.alt{background:linear-gradient(180deg,var(--bg),#040b14);border-top:1px solid var(--line2)}
+.deep{background:var(--bg2);border-top:1px solid var(--line2);border-bottom:1px solid var(--line2)}
+.kline{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin:0 0 20px}
+.claim{font-family:var(--display);font-weight:400;font-size:clamp(30px,5.2vw,58px);line-height:1.05;letter-spacing:-.015em;text-wrap:balance;max-width:20ch;margin:0}
+.claim b{font-weight:600}
+.claim em{color:var(--cyan)}
+.lede{color:var(--soft);font-size:clamp(15px,1.9vw,18px);line-height:1.6;max-width:52ch;margin:26px 0 0}
+.lede b{color:var(--ink);font-weight:600}
+
+/* RECEIPTS: the number is the hero */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:64px;border-top:1px solid var(--line);padding-top:48px}
+.stat .n{font-family:var(--mono);font-weight:700;font-size:clamp(38px,6.6vw,76px);line-height:1;letter-spacing:-.02em;white-space:nowrap}
+.stat .n .was{color:var(--muted)}.stat .n .arrow{color:var(--cyan-dim);padding:0 .12em}.stat .n .now{color:var(--cyan)}.stat .n .bad{color:var(--red)}.stat .n .wait{color:var(--gold)}
+.stat .lab{color:var(--soft);font-size:14px;margin-top:16px;line-height:1.5;max-width:28ch}
+.stat .lab b{color:var(--ink);font-weight:600}
+.src{display:inline-block;font:500 11px/1 var(--mono);letter-spacing:.06em;color:var(--muted);text-decoration:none;margin-top:10px;border-bottom:1px dotted var(--muted);padding-bottom:2px}
+.src:hover{color:var(--cyan);border-color:var(--cyan)}
+.wins{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:42px}
+.win{border:1px solid var(--line2);border-radius:16px;padding:26px 22px;background:var(--panel)}
+.win .wn{font-family:var(--mono);font-weight:700;font-size:clamp(26px,3.6vw,42px);color:var(--cyan);letter-spacing:-.02em;line-height:1;white-space:nowrap}
+.win .wn .of{color:var(--muted)}
+.win .wl{color:var(--soft);font-size:13px;margin-top:12px;line-height:1.5}
+
+/* CARDS */
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.acts.two{grid-template-columns:repeat(2,1fr)}
+.act{position:relative;display:flex;flex-direction:column;background:linear-gradient(180deg,var(--panel),#050c15);border:1px solid var(--line2);border-radius:18px;padding:28px 24px 24px;text-decoration:none;transition:.2s ease;overflow:hidden}
+a.act:hover,.act.lift:hover{border-color:var(--cyan);transform:translateY(-4px);box-shadow:0 24px 60px -34px #000}
+.act::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(73,232,200,.10),transparent 60%)}
+.act:hover::before{opacity:1}
+.act .num{font-family:var(--mono);font-size:12px;letter-spacing:.22em;color:var(--muted)}
+.act h3{font-family:var(--display);font-weight:500;font-size:26px;letter-spacing:-.01em;margin:14px 0 0}
+.act p{color:var(--soft);font-size:14.5px;line-height:1.55;margin:10px 0 0;flex:1}
+.act .go{font-family:var(--mono);font-size:12.5px;color:var(--cyan);margin-top:18px;display:inline-flex;gap:7px;align-items:center}
+
+/* THE STACK: one line per layer */
+.stack{margin-top:44px;border:1px solid var(--line2);border-radius:18px;overflow:hidden;background:#040b13}
+.srow{display:grid;grid-template-columns:64px minmax(0,1fr);align-items:center;border-top:1px solid var(--line2);padding:16px 22px;transition:.16s}
+.srow:first-child{border-top:none}
+.srow:hover{background:#08141f}
+.srow .d{font-family:var(--mono);font-size:12px;color:var(--cyan);letter-spacing:.12em}
+.srow .nm{display:flex;gap:6px 14px;align-items:baseline;flex-wrap:wrap;min-width:0}
+.srow .nm b{font-family:var(--display);font-weight:500;font-size:19px}
+.srow .nm span{color:var(--soft);font-size:14px;min-width:0;overflow-wrap:anywhere}
+.srow.red .d{color:var(--red)}.srow.gold .d{color:var(--gold)}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.tag.off{color:var(--muted);border:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.spark{display:block;width:100%;max-width:520px;height:64px;margin:12px 0 0}
+.tag.cy{color:var(--cyan);border:1px solid rgba(73,232,200,.32)}
+.tag.gd{color:var(--gold);border:1px solid rgba(255,207,106,.34);animation:breathe 2.4s ease-in-out infinite}
+.tag.rd{color:var(--red);border:1px solid rgba(255,107,107,.4)}
+@keyframes breathe{50%{opacity:.55}}
+
+/* THE GLASS: it runs here, on the visitor's own device */
+.glass{margin-top:44px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#07121d,#040b13);padding:26px 24px;box-shadow:0 30px 80px -50px #000,inset 0 1px 0 rgba(255,255,255,.04)}
+.glass h3{font-family:var(--display);font-weight:500;font-size:24px;margin:0 0 6px}
+.glass .hint{color:var(--soft);font-size:14px;margin:0 0 16px;max-width:60ch}
+.glass .out{font:500 13px/1.6 var(--mono);color:var(--soft);margin:14px 0 0;min-height:22px}
+.glass textarea,.glass input,.glass select{font:500 13px/1.5 var(--mono);color:var(--ink);background:rgba(2,7,12,.75);border:1px solid var(--line);border-radius:10px;padding:10px 12px;max-width:100%;min-height:42px}
+.glass textarea{width:100%;min-height:128px}
+.glass label{font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:inline-flex;flex-direction:column;gap:5px}
+.row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.box{border:1px solid var(--line2);border-radius:14px;padding:14px 16px;background:rgba(2,7,12,.5);min-width:0}
+.box h4{font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+pre{font:500 12.5px/1.55 var(--mono);color:var(--ink);margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.wall svg{width:100%;height:auto;display:block}
+.wall rect{cursor:pointer;transition:opacity .15s}
+.wall rect:hover{opacity:.7}
+.key{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 0 0;font:500 11.5px/1.4 var(--mono);color:var(--muted)}
+.key i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+
+/* PROOF + THE HONEST EXPANDER */
+.proof{text-align:center}
+.proof .hl{font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(38px,8vw,88px);line-height:1;letter-spacing:-.02em;margin:0}
+.proof .hl .a{color:var(--muted)}.proof .hl .b{color:var(--cyan)}
+.proof .sub2{color:var(--soft);margin:24px auto 0;max-width:42ch;font-size:16px}
+.links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.plink{font-family:var(--mono);font-size:13px;text-decoration:none;color:var(--ink);border:1px solid var(--line);padding:11px 18px;border-radius:999px;transition:.18s;min-height:44px;display:inline-flex;align-items:center}
+.plink:hover{border-color:var(--cyan);color:var(--cyan)}
+details.honest{max-width:680px;margin:22px auto 0;border:1px solid var(--line2);border-radius:14px;background:#040b13;text-align:left}
+details.honest:first-of-type{margin-top:52px}
+details.honest summary{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--muted);padding:16px 20px;cursor:pointer;list-style:none;min-height:48px}
+details.honest summary::-webkit-details-marker{display:none}
+details.honest summary::before{content:"+ ";color:var(--cyan)}
+details.honest[open] summary::before{content:"– "}
+details.honest .in{padding:0 20px 20px;color:var(--soft);font-size:14px;line-height:1.6}
+details.honest .in p{margin:0 0 10px}
+details.honest .in b{color:var(--ink)}
+details.honest .in a{color:var(--cyan)}
+
+footer{border-top:1px solid var(--line2);padding-block:46px;position:relative;z-index:2}
+.frow{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-size:22px}
+.taglist{font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.9;letter-spacing:.02em}
+.taglist span{color:var(--cyan)}
+.fnote{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:14px;letter-spacing:.02em;line-height:1.8}
+.fnote a{color:var(--soft)}
+
+/* MOTION */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media(max-width:860px){.acts{grid-template-columns:repeat(2,1fr)}.wins{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.stats{grid-template-columns:1fr;gap:40px}.two{grid-template-columns:1fr}.hero-shade{background:linear-gradient(180deg,rgba(2,7,12,.2) 0%,rgba(2,7,12,.82) 62%)}.hero{align-items:flex-end}.hero .wrap{padding-block:9vh}}
+@media(max-width:680px){.acts,.acts.two{grid-template-columns:1fr}.srow{grid-template-columns:48px minmax(0,1fr);padding:14px 16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .reveal{opacity:1;transform:none;transition:none}.tag.gd{animation:none}.btn,.act{transition:none}}
+/* this build's own styles, for its own content, which now sits behind a click or inside the glass */
+#gem{position:relative;display:block;width:100%;height:min(68vh,560px);touch-action:none;cursor:grab;border-radius:14px;background:#02070c;margin:0 0 16px}
+.legacy{font-size:15px;line-height:1.6}
+.legacy{--abyss:#02070c;--water:#04101a;--lume:#5ef2e4;--blue:#49b4ff;--violet:#a797ff;--amber:#ffbf78;--red:#ff6470;--ink:#e4f6f8;--ink-2:#a3c3cb;--ink-3:#7f9fa7;--panel:rgba(4,16,25,.86);--edge:rgba(94,242,228,.2);--display:'Fraunces','Iowan Old Style','Palatino Linotype',Georgia,serif;--body:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,'Cascadia Mono',Consolas,monospace;--gut:clamp(16px,5vw,72px);}
+.legacy a{color:var(--lume);text-underline-offset:3px}
+.legacy :focus-visible{outline:2px solid var(--lume);outline-offset:3px}
+.legacy code{font:500 .86em var(--mono);color:var(--lume);overflow-wrap:anywhere}
+.legacy .kicker{font:500 11px/1.4 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);margin:0 0 10px}
+.legacy .lead{margin:0 0 18px;color:var(--ink);text-shadow:0 0 14px var(--abyss),0 0 4px var(--abyss)}
+.legacy .row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.legacy button{font:600 14px/1 var(--body);color:#012;background:var(--lume);border:0;padding:13px 20px;cursor:pointer;border-radius:2px}
+.legacy button:hover{filter:brightness(1.1)}
+.legacy button:disabled{opacity:.5;cursor:default}
+.legacy button.quiet{background:transparent;color:var(--ink);border:1px solid var(--edge)}
+.legacy .hint,.legacy .small{font:500 11.5px/1.5 var(--mono);color:var(--ink-2)}
 #status{font:500 12px/1.5 var(--mono);color:var(--ink-2);margin:12px 0 0;min-height:18px;text-shadow:0 0 10px var(--abyss)}
-.ledger{display:flex;flex-wrap:wrap;gap:8px 22px;margin:16px 0 8px;font:500 11.5px/1.3 var(--mono);letter-spacing:.06em;color:var(--ink-2);max-width:none}
-.ledger b{display:block;font:500 clamp(17px,2.6vw,24px)/1.1 var(--mono);color:var(--ink);letter-spacing:0}
-.ledger .bad b{color:var(--red)}
-.scrub{display:flex;align-items:center;gap:12px;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);max-width:520px}
-.scrub input{flex:1;accent-color:var(--lume);min-height:32px}
-select{font:500 13px/1.2 var(--body);min-height:36px;padding:6px 8px;color:var(--ink);background:rgba(2,7,12,.9);border:1px solid var(--edge);border-radius:2px}
-.tags{font:italic 400 15px/1.5 var(--display);color:var(--ink-2);margin:14px 0 0}
+.legacy .ledger{display:flex;flex-wrap:wrap;gap:8px 22px;margin:16px 0 8px;font:500 11.5px/1.3 var(--mono);letter-spacing:.06em;color:var(--ink-2);max-width:none}
+.legacy .ledger b{display:block;font:500 clamp(17px,2.6vw,24px)/1.1 var(--mono);color:var(--ink);letter-spacing:0}
+.legacy .ledger .bad b{color:var(--red)}
+.legacy .scrub{display:flex;align-items:center;gap:12px;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);max-width:520px}
+.legacy .scrub input{flex:1;accent-color:var(--lume);min-height:32px}
+.legacy select{font:500 13px/1.2 var(--body);min-height:36px;padding:6px 8px;color:var(--ink);background:rgba(2,7,12,.9);border:1px solid var(--edge);border-radius:2px}
+.legacy .tags{font:italic 400 15px/1.5 var(--display);color:var(--ink-2);margin:14px 0 0}
 #tip{position:fixed;z-index:30;left:0;top:0;transform:translate(-999px,-999px);font:500 12px/1.4 var(--mono);color:var(--ink);background:rgba(2,7,12,.92);border:1px solid var(--edge);padding:7px 10px;max-width:min(340px,80vw);pointer-events:none}
-section.panel{background:var(--panel);border-top:1px solid var(--edge);padding:44px var(--gut)}
-section.panel>*{max-width:760px}
-h2{font:400 clamp(26px,4.4vw,38px)/1.1 var(--display);margin:0 0 14px}
-h2 em{font-style:italic;color:var(--lume)}
-h3{font:600 15px/1.3 var(--body);margin:22px 0 6px}
-ol,ul{padding-left:20px}
-li{margin:0 0 8px}
-details{border-top:1px solid var(--edge);padding:10px 0}
-details>summary{cursor:pointer;font-weight:600}
-table{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0}
-th,td{text-align:left;padding:7px 8px 7px 0;border-bottom:1px solid var(--edge);vertical-align:top}
-th{font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
-td.num{font-family:var(--mono);white-space:nowrap}
-.pass{color:var(--lume)}.fail{color:var(--red);font-weight:600}.pend{color:var(--amber)}
-.wrap{overflow-x:auto}
-svg.law{width:100%;height:auto;max-width:760px}
-svg.law text{font:500 12px var(--mono);fill:var(--ink)}
-svg.law .m{fill:var(--ink-2)}
-footer{background:var(--abyss);border-top:1px solid var(--edge);padding:28px var(--gut) 40px;font:500 12px/1.7 var(--mono);color:var(--ink-2)}
-@media (max-width:640px){.top nav a:not(.keep){display:none}.hero{padding-bottom:20px}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.legacy h2{font:400 clamp(26px,4.4vw,38px)/1.1 var(--display);margin:0 0 14px}
+.legacy h2 em{font-style:italic;color:var(--lume)}
+.legacy h3{font:600 15px/1.3 var(--body);margin:22px 0 6px}
+.legacy ol,.legacy ul{padding-left:20px}
+.legacy li{margin:0 0 8px}
+.legacy details{border-top:1px solid var(--edge);padding:10px 0}
+.legacy details>summary{cursor:pointer;font-weight:600}
+.legacy table{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0}
+.legacy th,.legacy td{text-align:left;padding:7px 8px 7px 0;border-bottom:1px solid var(--edge);vertical-align:top}
+.legacy th{font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.legacy td.num{font-family:var(--mono);white-space:nowrap}
+.legacy .pass{color:var(--lume)}.fail{color:var(--red);font-weight:600}.pend{color:var(--amber)}
+.legacy .wrap{overflow-x:auto}
+.legacy svg.law{width:100%;height:auto;max-width:760px}
+.legacy svg.law text{font:500 12px var(--mono);fill:var(--ink)}
+.legacy svg.law .m{fill:var(--ink-2)}
 </style>
 </head>
 <body>
-<canvas id="gem" role="img" aria-label="A crystal of octahedra. Each lit facet is one step the model got right; dark facets are steps never reached."></canvas>
-<header class="top">
-  <a class="mark" href="#top">The Crystal</a>
-  <nav aria-label="On this page"><a href="#start">Start</a><a href="#how">How it grows</a><a href="#stack">The watchers</a><a class="keep" href="#numbers">The numbers</a><a class="keep" href="#limits">What this does not prove</a><a href="#buyers">For buyers</a><a href="#paper">White paper</a></nav>
+<header class="hero" id="top">
+  <canvas id="crystal" role="img" aria-label="A crystal of 32 faces. Each lit face is one of this build's pre-registered claims: cyan when it passed, red when it failed and is kept."></canvas>
+  <div class="hero-shade"></div>
+  <div class="wrap">
+    <p class="eyebrow">AI Native Solutions · The Crystal</p>
+    <h1>It <em>crystallises.</em></h1>
+    <p class="sub">The answer is grown from proven pieces, in parallel. What cannot be proven dissolves.</p>
+    <div class="cta"><a class="btn primary" href="#result">See the result →</a><a class="btn ghost" href="#glass">Run it yourself</a></div>
+  </div>
+  <p class="facet" id="hsFacet" aria-live="polite">7 of 7 claims passed · point at a face</p>
 </header>
-<main>
-<section class="hero" id="top">
-  <p class="kicker">Grown from The Climb, as sealed</p>
-  <h1>Watch it <em>grow.</em></h1>
-  <p class="lead">Each lit facet is one step a small AI model got right, checked by exact arithmetic. A step it gets wrong is split into smaller steps. A step it still cannot do shatters, and whatever needed it stays dark. Nothing else is on the glass.</p>
-  <div class="row"><button id="grow" type="button">Grow it here</button><button id="play" class="quiet" type="button">Play the record</button><span class="hint">or press Enter · the model is about 880 MB, once</span></div>
+
+<section class="pad" id="result">
+  <div class="wrap">
+    <p class="kline reveal">The result</p>
+    <h2 class="claim reveal">One try, against a crystal grown one checked step at a time. <b>Same model, same weights.</b></h2>
+    <div class="stats" id="hsReceipts"><div class="stat reveal"><div class="n"><span class="was">31.0%</span><span class="arrow">→</span><span class="now">85.7%</span></div><div class="lab"><b>Of 84 sealed problems.</b> Sealed problems right: at one try, then as a crystal.</div><a class="src" href="data/runs/sealed.json">receipt: the sealed run ↗</a></div><div class="stat reveal"><div class="n"><span class="now">0</span><span class="was" style="font-size:.42em"> /26,086</span></div><div class="lab"><b>Forged replies that got past the check.</b> Of 26,086.</div><a class="src" href="data/runs/sealed.json">receipt: the sealed run ↗</a></div><div class="stat reveal"><div class="n"><span class="now">7</span><span class="was" style="font-size:.42em"> /7</span></div><div class="lab"><b>Pre-registered claims passed.</b> A claim that fails stays on the page, in red.</div><a class="src" href="data/runs/sealed.json">receipt: the sealed run ↗</a></div></div>
+  </div>
+</section>
+
+<section class="pad alt" id="claims">
+  <div class="wrap">
+    <p class="kline reveal">The claims, written down first</p>
+    <h2 class="claim reveal">The pass marks were fixed <b>before the sealed run.</b></h2>
+    <div class="stack reveal" id="hsClaims"><div class="srow "><div class="d">K1</div><div class="nm"><b>A complete crystal is right</b><span>72 crystals completed, 0 of them with a wrong answer</span><span class="tag cy">pass</span></div></div><div class="srow "><div class="d">K2</div><div class="nm"><b>Growth always stops</b><span>0 of 84 crystals ran into the limit on rounds; 12 did not complete, 0 of them with no dissolved cell; the deepest took 45 rounds</span><span class="tag cy">pass</span></div></div><div class="srow "><div class="d">K3</div><div class="nm"><b>The bond-check holds</b><span>0 of 26086 forged replies bonded (0 that would have been false, 0 outside the three forms); 0 of 6912 honest replies were refused; the two readers ruled differently on 0 of 60646 replies; 0 threw. 576 cells, seed 20261134</span><span class="tag cy">pass</span></div></div><div class="srow "><div class="d">K4</div><div class="nm"><b>The crystal reaches further than one try</b><span>one try 31.0%, the crystal 85.7% of 84 problems; 46 only the crystal finished, 0 only the one try, p = 2.84e-14</span><span class="tag cy">pass</span></div></div><div class="srow "><div class="d">K5</div><div class="nm"><b>It reaches where the climb could not</b><span>of 12 wall problems that carry a calculation: the crystal completed 6, The Climb brought home 2; 4 only the crystal, 0 only The Climb</span><span class="tag cy">pass</span></div></div><div class="srow "><div class="d">K6</div><div class="nm"><b>Nothing set is grown twice</b><span>0 cells were asked twice; 110 of the 536 cells that set were set from what was held (20.5%), and 426 were bonded by the model in 586 calls</span><span class="tag cy">pass</span></div></div><div class="srow "><div class="d">K7</div><div class="nm"><b>The harness can find a leak</b><span>12 of 12 planted leaks were found</span><span class="tag cy">pass</span></div></div></div>
+  </div>
+</section>
+
+<section class="pad proof" id="glass">
+  <div class="wrap">
+    <h2 class="hl reveal"><span class="a">Don't trust us.</span><br><span class="b">Re-run it.</span></h2>
+    <p class="sub2 reveal">Grow one on your own graphics chip, or play the sealed record. Nothing leaves your browser.</p>
+    <div class="glass legacy reveal" style="text-align:left">
+      <canvas id="gem" role="img" aria-label="A crystal of octahedra. Each lit facet is one step the model got right; dark facets are steps never reached."></canvas>
+      <div class="row"><button id="grow" type="button">Grow it here</button><button id="play" class="quiet" type="button">Play the record</button><span class="hint">or press Enter · the model is about 880 MB, once</span></div>
   <p id="status" aria-live="polite">Showing the published sealed run: Llama 3.2 1B, 4-bit, in a browser tab (WebLLM 0.2.79), intel gen-12lp, 2026-11-24.</p>
   <div class="ledger" aria-label="What is on the glass">
     <span><b data-bind="n.bonds">426</b>bonds</span>
@@ -94,25 +246,26 @@ footer{background:var(--abyss);border-top:1px solid var(--edge);padding:28px var
     <span><b data-bind="n.complete">72 of 84</b>crystals complete</span>
   </div>
   <label class="scrub"><span>Depth</span><input type="range" id="scrub" min="0" max="1000" value="1000" aria-label="Travel through the growth, from the seed to the last cell"></label>
-  <p class="tags">Don't trust us. Re-run it. · A small model that says "I can't tell." · Nothing leaves your browser.</p>
+    </div>
+    <div id="tip" role="status" aria-live="polite"></div>
+    <details class="honest reveal"><summary>What this does — and doesn't — claim</summary><div class="in"><p><b>The reach of the check.</b> The only check is exact arithmetic. Nothing else can bond.</p><p><b>The model did not get smarter.</b> It is the same small model at the last facet as at the first.</p><p><b>One sealed run.</b> Problems made by code. An attack that found no leak is evidence, not a proof.</p><p>The full list is below, under "What this does not prove".</p></div></details>
+  </div>
 </section>
-<div id="tip" role="status" aria-live="polite"></div>
 
-<section class="panel" id="start">
-  <h2>Start <em>here</em></h2>
-  <p><b>The words this page uses.</b> A <b>cell</b> is one small sum the model is asked, such as 26 × 12. A reply <b>bonds</b> when code works the sum out in exact fractions and the reply is right; the <b>bond-check</b> is that code. A cell the model gets wrong is <b>split</b> into smaller cells; one that is wrong and cannot be split smaller <b>shatters</b>, and every step that needed it <b>stays dark</b>: it is left out, and that problem gets no answer rather than a wrong one. A <b>round</b> is one set of cells asked together, and a crystal <b>completes</b> when every cell from the problem down bonded. <b>The Climb</b> is the build before this one: it asked the model for a whole answer and checked it, and to <b>bring a problem home</b> is to get it right. The <b>sealed run</b> is the measurement, on problems the build was never tuned on, made after every file that could change a result was frozen. The <b>watchers</b> are code that attacks the bond-check: a <b>harness</b> forges replies, a <b>second reader</b> written apart must rule the same way on each, and a <b>planted leak</b> is a flaw put into a copy of the check on purpose, to show the harness finds it. A <b>seed</b> is the number that fixes every random choice, so anyone can make the same attack again. The <b>depths</b> 0 to 6 are layers of checking, from the step itself up to a person: nothing changes the model without a person's yes.</p>
+<section class="pad alt" id="full">
+  <div class="wrap">
+    <p class="kline reveal">Everything, in full</p>
+    <h2 class="claim reveal">Every detail is still here. <b>One click away.</b></h2>
+    <details class="honest reveal" style="max-width:none"><summary>What it is, in one paragraph</summary><div class="in legacy"><p class="lead">Each lit facet is one step a small AI model got right, checked by exact arithmetic. A step it gets wrong is split into smaller steps. A step it still cannot do shatters, and whatever needed it stays dark. Nothing else is on the glass.</p></div></details>
+    <details class="honest reveal" id="start" style="max-width:none"><summary>Start here</summary><div class="in legacy"><p><b>The words this page uses.</b> A <b>cell</b> is one small sum the model is asked, such as 26 × 12. A reply <b>bonds</b> when code works the sum out in exact fractions and the reply is right; the <b>bond-check</b> is that code. A cell the model gets wrong is <b>split</b> into smaller cells; one that is wrong and cannot be split smaller <b>shatters</b>, and every step that needed it <b>stays dark</b>: it is left out, and that problem gets no answer rather than a wrong one. A <b>round</b> is one set of cells asked together, and a crystal <b>completes</b> when every cell from the problem down bonded. <b>The Climb</b> is the build before this one: it asked the model for a whole answer and checked it, and to <b>bring a problem home</b> is to get it right. The <b>sealed run</b> is the measurement, on problems the build was never tuned on, made after every file that could change a result was frozen. The <b>watchers</b> are code that attacks the bond-check: a <b>harness</b> forges replies, a <b>second reader</b> written apart must rule the same way on each, and a <b>planted leak</b> is a flaw put into a copy of the check on purpose, to show the harness finds it. A <b>seed</b> is the number that fixes every random choice, so anyone can make the same attack again. The <b>depths</b> 0 to 6 are layers of checking, from the step itself up to a person: nothing changes the model without a person's yes.</p>
   <ol>
     <li><b>Look.</b> Drag the crystal to turn it. Point at a facet to read the step it is. Move the Depth slider to travel from the seed out to the last cell that set.</li>
     <li><b>Grow one yourself.</b> Press <b>Grow it here</b>, or Enter. The model runs in this tab on your own graphics chip, and a crystal grows from eight problems while you watch. <span id="device" class="small">Checking this device…</span></li>
     <li><b>Check the record.</b> <button id="rejudge" class="quiet" type="button">Grow the published crystal again, with no model</button> <span id="rejudgeOut" class="small" aria-live="polite"></span></li>
     <li><b>Attack the bond-check yourself.</b> <button id="attack" class="quiet" type="button">Make a new attack</button> <span id="attackOut" class="small" aria-live="polite"></span></li>
     <li><b>Run the whole measurement.</b> <select id="runWhich" aria-label="Which set"><option value="sample">Sample: 8 problems</option><option value="dev">Dev: the 40 problems the build was tuned on</option><option value="sealed">Sealed: the 96 problems the claims are judged on</option></select> <button id="run" class="quiet" type="button">Run it</button> <button id="save" class="quiet" type="button" disabled>Save my run</button> <span id="runOut" class="small" aria-live="polite"></span></li>
-  </ol>
-</section>
-
-<section class="panel" id="how">
-  <h2>How it <em>grows</em></h2>
-  <p>A calculation is broken into cells. A cell is one operation on two numbers, such as <code>26 × 12</code>. Every cell meets the same law, and the law is the whole engine.</p>
+  </ol></div></details>
+    <details class="honest reveal" id="how" style="max-width:none"><summary>How it grows</summary><div class="in legacy"><p>A calculation is broken into cells. A cell is one operation on two numbers, such as <code>26 × 12</code>. Every cell meets the same law, and the law is the whole engine.</p>
   <svg class="law" viewBox="0 0 760 200" role="img" aria-labelledby="lawT"><title id="lawT">The law for one cell: set if already held, bond if the model is right, split if it is wrong and there is something smaller, dissolve if there is not</title>
     <g fill="none" stroke="rgba(94,242,228,.35)"><rect x="10" y="70" width="130" height="56"/><rect x="210" y="10" width="170" height="44"/><rect x="210" y="70" width="170" height="44"/><rect x="210" y="130" width="170" height="44"/><rect x="450" y="130" width="170" height="44"/><path d="M140 98H175M175 32V152M175 32H210M175 92H210M175 152H210M380 152H450"/></g>
     <text x="75" y="94" text-anchor="middle">one cell</text><text x="75" y="112" text-anchor="middle" class="m">26 × 12</text>
@@ -129,29 +282,17 @@ footer{background:var(--abyss);border-top:1px solid var(--edge);padding:28px var
     <li><b>Dissolve.</b> If the reply does not bond and there is nothing smaller, the cell shatters. Whatever needed it stays dark, and the crystal does not complete.</li>
     <li><b>Depth.</b> Every cell that is ready is asked in the same round. Rounds are the fourth axis: a cell's depth is the round it set in, drawn as distance from the centre and as colour, green-blue near the seed and violet at the deepest.</li>
   </ol>
-  <p>Two things follow from the law alone. A crystal that completes is right, because every step from the problem down to single cells bonded and a bond is exact arithmetic. And growth always stops, because a cell is asked once and each split is strictly smaller. <span data-bind="h.law">In the published sealed run: 72 crystals completed and 0 of them were wrong; 0 ran into the limit on rounds; the widest round had 8 cells ready at once.</span></p>
-</section>
-
-<section class="panel" id="stack">
-  <h2>The <em>watchers</em></h2>
-  <p>The whole build is one stack of seven layers. Each layer watches the one beneath it and catches what that one cannot see in itself. The crystal on the glass is what these layers put out, and nothing else.</p>
+  <p>Two things follow from the law alone. A crystal that completes is right, because every step from the problem down to single cells bonded and a bond is exact arithmetic. And growth always stops, because a cell is asked once and each split is strictly smaller. <span data-bind="h.law">In the published sealed run: 72 crystals completed and 0 of them were wrong; 0 ran into the limit on rounds; the widest round had 8 cells ready at once.</span></p></div></details>
+    <details class="honest reveal" id="stack" style="max-width:none"><summary>The watchers</summary><div class="in legacy"><p>The whole build is one stack of seven layers. Each layer watches the one beneath it and catches what that one cannot see in itself. The crystal on the glass is what these layers put out, and nothing else.</p>
   <p>A stack of watchers only works if it ends, at both ends. <b>The floor</b> is depth 0: nothing is kept that does not come down to a step the model was asked and a check, which is code, bonded. <b>The ceiling</b> is depth 6: a person. Nothing on this page changes the model, and if a later build does, each change stops at a person first. Every layer between has a limit it cannot run past, written in its row.</p>
   <div class="wrap" id="stackTable"><table><thead><tr><th>depth</th><th>the watcher</th><th>what it does, and where it must stop</th><th>what it put out</th></tr></thead><tbody><tr><td class="num">0</td><td><b>The substrate</b><br><span class="small">the 1B model in the tab · <span class="pass">built</span></span></td><td>Makes the replies. With the kinds of step it gets right nearly every time, it is the floor everything else stands on.<br><span class="small">Its limit: a reply is cut off at 24 tokens.</span></td><td><span class="small">replies it gave</span><br><b class="num">586</b><br><span class="small">kinds of step it gets right at least 19 times in 20</span><br><b class="num">digit + digit, digit × digit, two digits × one</b></td></tr><tr><td class="num">1</td><td><b>The step watcher</b><br><span class="small">src/bond.mjs · <span class="pass">built</span></span></td><td>Rules on every reply. One plain statement of the cell&#39;s value, exactly right, bonds. Anything else does not. <span class="small">Stops: a made-up step.</span><br><span class="small">Its limit: one reply, read once, 200 characters at most.</span></td><td><span class="small">replies that bonded</span><br><b class="num">426 of 586 (72.7%)</b><br><span class="small">replies refused, by the reason</span><br><b class="num">wrong value 160</b></td></tr><tr><td class="num">2</td><td><b>The trajectory watcher</b><br><span class="small">vendor/climb/src/left.mjs, plan.mjs · <span class="pass">built</span></span></td><td>Holds what is left to do. A true line that is no step of the problem earns nothing. A step the model gets wrong is split into smaller ones. <span class="small">Stops: true lines that go nowhere, and going round in circles.</span><br><span class="small">Its limit: a cell is asked once and split again at most 8 times; a crystal has 256 rounds at most.</span></td><td><span class="small">steps split smaller</span><br><b class="num">140</b><br><span class="small">steps washed away</span><br><b class="num">30</b><br><span class="small">rounds in the deepest crystal</span><br><b class="num">45</b><br><span class="small">crystals that ran into the limit on rounds</span><br><b class="num">0</b></td></tr><tr><td class="num">3</td><td><b>The topology watcher</b><br><span class="small">src/grow.mjs, src/lattice.mjs · <span class="pass">built</span></span></td><td>Grows every ready cell of a round, keeps what set so it is never grown twice, washes away what cannot be made smaller, and gives each cell its place. <span class="small">Stops: growing the same thing twice, and branches that cannot finish.</span><br><span class="small">Its limit: 10425 places in the lattice; the glass draws 8192 cells at most and slows to 12 frames a second while the model works.</span></td><td><span class="small">cells set from what was already held, with no model call</span><br><b class="num">110 of 536 (20.5%)</b><br><span class="small">calls that carried the last conversation on</span><br><b class="num">360 of 586 (61.4%)</b><br><span class="small">middle time of a call carried on, and of one begun afresh</span><br><b class="num">1588 ms, 3357 ms</b><br><span class="small">cells ready in one round, at the widest</span><br><b class="num">8</b><br><span class="small">places filled in the lattice</span><br><b class="num">1096 of 10425 (10.5%)</b></td></tr><tr><td class="num">4</td><td><b>The ceiling watcher</b><br><span class="small">src/fuzz.mjs · <span class="pass">built</span></span></td><td>Attacks the step watcher: forged replies made many ways, and a second reader written apart from it. Then it is turned on readers with a leak planted in each, to show it can find one. <span class="small">Stops: a check that lets something false through.</span><br><span class="small">Its limit: 108 replies for each cell, from a seed.</span></td><td><span class="small">forged replies that bonded</span><br><b class="num">0 of 26086 (0.0%)</b><br><span class="small">honest replies refused</span><br><b class="num">0 of 6912 (0.0%)</b><br><span class="small">replies the two readers ruled differently on</span><br><b class="num">0 of 60646 (0.0%)</b><br><span class="small">planted leaks found</span><br><b class="num">12 of 12 (100.0%)</b></td></tr><tr><td class="num">5</td><td><b>The axiom-floor watcher</b><br><span class="small">not built · <span class="pend">parked</span></span></td><td>Would train the model again on what the crystal proved, to move the wall out. It is the one layer that changes the floor all the others stand on, so it is not built here. <span class="small">Stops: a wall that never moves.</span><br><span class="small">Its limit: a new model would be kept only if it beat the old one on the sealed problems.</span></td><td><span class="small">nothing: it is not built</span></td></tr><tr><td class="num">6</td><td><b>The human</b><br><span class="small">a person · <span class="pass">always on</span></span></td><td>Nothing on this page changes the model, and nothing here is published as a sealed result until a person has run the seal and the check on it. If depth 5 is ever built, each new model stops here first. <span class="small">Stops: the stack changing its own floor with nobody looking.</span><br><span class="small">Its limit: always on.</span></td><td><span class="small">the seal this page was built under</span><br><b class="num">2079d7cec166</b></td></tr></tbody></table><p class="small">Depths 0 to 3 are counted from the published sealed run. Depth 4 is worked out on this page each time it loads: the 576 different cells that run put to the model, 60646 replies, seed 20261134.</p></div>
-  <p class="small">Depth 4 was built before anything was grown on depth 1: a leak in the check that makes bonds would be copied into every cell above it. Depth 5 is not built. It is the one layer that would change the floor everything else stands on.</p>
-</section>
-
-<section class="panel" id="numbers">
-  <h2>The <em>numbers</em></h2>
-  <p class="small" data-bind="h.source">From the published sealed run: Llama 3.2 1B, 4-bit, in a browser tab (WebLLM 0.2.79), intel gen-12lp, 2026-11-24; 4818 s in 1 sitting; 0 network requests while it worked.</p>
+  <p class="small">Depth 4 was built before anything was grown on depth 1: a leak in the check that makes bonds would be copied into every cell above it. Depth 5 is not built. It is the one layer that would change the floor everything else stands on.</p></div></details>
+    <details class="honest reveal" id="numbers" style="max-width:none"><summary>The numbers</summary><div class="in legacy"><p class="small" data-bind="h.source">From the published sealed run: Llama 3.2 1B, 4-bit, in a browser tab (WebLLM 0.2.79), intel gen-12lp, 2026-11-24; 4818 s in 1 sitting; 0 network requests while it worked.</p>
   <div class="wrap" id="claimsTable"><table><thead><tr><th>claim</th><th>the bar, registered before the run</th><th>on the sealed run</th><th></th></tr></thead><tbody><tr><td><b>K1</b> A complete crystal is right</td><td>no crystal completes with a wrong answer: none, of every sealed problem</td><td>72 crystals completed, 0 of them with a wrong answer</td><td><span class="pass">PASS</span></td></tr><tr><td><b>K2</b> Growth always stops</td><td>no crystal runs into the limit on rounds, and every crystal that does not complete has a cell that dissolved</td><td>0 of 84 crystals ran into the limit on rounds; 12 did not complete, 0 of them with no dissolved cell; the deepest took 45 rounds</td><td><span class="pass">PASS</span></td></tr><tr><td><b>K3</b> The bond-check holds</td><td>no forged reply bonds, of every forgery made for every cell the sealed run asked the model; no honest reply is refused; the bond-check and the second reader never rule differently on a reply; and nothing throws</td><td>0 of 26086 forged replies bonded (0 that would have been false, 0 outside the three forms); 0 of 6912 honest replies were refused; the two readers ruled differently on 0 of 60646 replies; 0 threw. 576 cells, seed 20261134</td><td><span class="pass">PASS</span></td></tr><tr><td><b>K4</b> The crystal reaches further than one try</td><td>the crystal completes more of the sealed problems than one try gets right, by an exact two-sided McNemar test, p &lt; 0.05</td><td>one try 31.0%, the crystal 85.7% of 84 problems; 46 only the crystal finished, 0 only the one try, p = 2.84e-14</td><td><span class="pass">PASS</span></td></tr><tr><td><b>K5</b> It reaches where the climb could not</td><td>on the sealed wall-tier problems that carry a calculation, the crystal completes at least one that The Climb did not bring home, and The Climb brings home none that the crystal did not complete</td><td>of 12 wall problems that carry a calculation: the crystal completed 6, The Climb brought home 2; 4 only the crystal, 0 only The Climb</td><td><span class="pass">PASS</span></td></tr><tr><td><b>K6</b> Nothing set is grown twice</td><td>no cell is asked of the model twice in one problem, and at least 1 cell in 10 of those that set was set from what was already held, with no model call</td><td>0 cells were asked twice; 110 of the 536 cells that set were set from what was held (20.5%), and 426 were bonded by the model in 586 calls</td><td><span class="pass">PASS</span></td></tr><tr><td><b>K7</b> The harness can find a leak</td><td>the harness that attacks the bond-check finds the leak in every reader that has one planted in it</td><td>12 of 12 planted leaks were found</td><td><span class="pass">PASS</span></td></tr></tbody></table></div>
   <details><summary>The floor: which kinds of step the model gets right</summary><div class="wrap" id="floor"><table><thead><tr><th>kind of step</th><th>asked</th><th>bonded</th><th>split</th><th>dissolved</th></tr></thead><tbody><tr><td>sum, places overlap</td><td class="num">162</td><td class="num">110 (68%)</td><td class="num">52</td><td class="num">0</td></tr><tr><td>sum, places apart</td><td class="num">107</td><td class="num">65 (61%)</td><td class="num">16</td><td class="num fail">26</td></tr><tr><td>long product</td><td class="num">87</td><td class="num">60 (69%)</td><td class="num">27</td><td class="num">0</td></tr><tr><td>difference</td><td class="num">56</td><td class="num">36 (64%)</td><td class="num">20</td><td class="num">0</td></tr><tr><td>three or more digits × one</td><td class="num">49</td><td class="num">37 (76%)</td><td class="num">12</td><td class="num">0</td></tr><tr><td>digit × digit, with noughts</td><td class="num">44</td><td class="num">41 (93%)</td><td class="num">0</td><td class="num fail">3</td></tr><tr><td>two digits × one</td><td class="num">32</td><td class="num">32 (100%)</td><td class="num">0</td><td class="num">0</td></tr><tr><td>digit × digit</td><td class="num">17</td><td class="num">17 (100%)</td><td class="num">0</td><td class="num">0</td></tr><tr><td>digit + digit</td><td class="num">15</td><td class="num">15 (100%)</td><td class="num">0</td><td class="num">0</td></tr><tr><td>other</td><td class="num">7</td><td class="num">3 (43%)</td><td class="num">4</td><td class="num">0</td></tr><tr><td>division</td><td class="num">6</td><td class="num">6 (100%)</td><td class="num">0</td><td class="num">0</td></tr><tr><td>half</td><td class="num">4</td><td class="num">4 (100%)</td><td class="num">0</td><td class="num">0</td></tr></tbody></table><p class="small">Right nearly every time it was asked (at least 19 in 20, asked at least 10 times): digit + digit, digit × digit, two digits × one. From the published sealed run.</p></div></details>
   <details><summary>The bond-check, attacked</summary><div class="wrap" id="attackTable"><p>60646 replies were put to the bond-check on 576 cells (every different cell the published sealed run asked the model), from seed 20261134. <b class="pass">0 of 26086 forged replies bonded.</b> <b class="pass">0 of 6912 honest replies were refused.</b> The bond-check and the second reader ruled differently on <b class="pass">0</b> replies, and 0 threw. 2930 of 27648 noise replies bonded, each one because the noise had left it an honest statement: both readers said so. 43 forgeries came out as the cell's own statement and were not tried.</p><table><thead><tr><th>how the reply was forged</th><th>a bond would be</th><th>tried</th><th>bonded</th></tr></thead><tbody><tr><td>a wrong value</td><td>false</td><td class="num">1163</td><td class="num">0</td></tr><tr><td>a wrong value, alone</td><td>false</td><td class="num">1166</td><td class="num">0</td></tr><tr><td>a wrong value, value first</td><td>false</td><td class="num">1199</td><td class="num">0</td></tr><tr><td>the value below nothing</td><td>false</td><td class="num">1160</td><td class="num">0</td></tr><tr><td>other working that comes to the value</td><td>false</td><td class="num">1178</td><td class="num">0</td></tr><tr><td>another step, true</td><td>false</td><td class="num">1237</td><td class="num">0</td></tr><tr><td>another step, given the value</td><td>false</td><td class="num">1197</td><td class="num">0</td></tr><tr><td>the other operation on the same numbers</td><td>false</td><td class="num">1205</td><td class="num">0</td></tr><tr><td>the same numbers the other way round</td><td>false</td><td class="num">133</td><td class="num">0</td></tr><tr><td>the numbers and signs shuffled</td><td>false</td><td class="num">1179</td><td class="num">0</td></tr><tr><td>the right value after a wrong one</td><td>false</td><td class="num">1173</td><td class="num">0</td></tr><tr><td>a wrong value after the right one</td><td>false</td><td class="num">1202</td><td class="num">0</td></tr><tr><td>two values</td><td>false</td><td class="num">1233</td><td class="num">0</td></tr><tr><td>a chain that does not hold</td><td>false</td><td class="num">1195</td><td class="num">0</td></tr><tr><td>no value</td><td>false</td><td class="num">1199</td><td class="num">0</td></tr><tr><td>a true rewrite that states no value</td><td>false</td><td class="num">1230</td><td class="num">0</td></tr><tr><td>a false line riding on a true one</td><td>false</td><td class="num">1178</td><td class="num">0</td></tr><tr><td>a space inside the value</td><td>false</td><td class="num">758</td><td class="num">0</td></tr><tr><td>the value in a sentence</td><td>outside the three forms</td><td class="num">1227</td><td class="num">0</td></tr><tr><td>the value with a unit or a mark</td><td>outside the three forms</td><td class="num">1232</td><td class="num">0</td></tr><tr><td>a second line after the right one</td><td>outside the three forms</td><td class="num">1229</td><td class="num">0</td></tr><tr><td>the value in look-alike characters</td><td>outside the three forms</td><td class="num">1203</td><td class="num">0</td></tr><tr><td>too long, or built to break a reader</td><td>outside the three forms</td><td class="num">1210</td><td class="num">0</td></tr></tbody></table><h3>Some of what it tried</h3><table><thead><tr><th>made as</th><th>the reply</th><th>bonded</th></tr></thead><tbody><tr><td>another step, true</td><td><code>&quot;5 - 3 = 2&quot;</code></td><td>no</td></tr><tr><td>the other operation on the same numbers</td><td><code>&quot;7 - 2 = 14&quot;</code></td><td>no</td></tr><tr><td>no value</td><td><code>&quot;7 × 2&quot;</code></td><td>no</td></tr><tr><td>no value</td><td><code>&quot; &quot;</code></td><td>no</td></tr><tr><td>the value in a sentence</td><td><code>&quot;14?&quot;</code></td><td>no</td></tr><tr><td>a false line riding on a true one</td><td><code>&quot;7 × 2 = 14, 2 + 2 = 5&quot;</code></td><td>no</td></tr><tr><td>a space inside the value</td><td><code>&quot;7 × 2 = 1 4&quot;</code></td><td>no</td></tr><tr><td>a false line riding on a true one</td><td><code>&quot;7 × 2 = 14, 2 + 2 = 5&quot;</code></td><td>no</td></tr><tr><td>honest</td><td><code>&quot;\t14=\t2  ×7 &quot;</code></td><td>yes</td></tr><tr><td>honest</td><td><code>&quot;\n2 X\t7  = 14\r\n&quot;</code></td><td>yes</td></tr><tr><td>honest</td><td><code>&quot; 14.&quot;</code></td><td>yes</td></tr><tr><td>honest</td><td><code>&quot;7 X\t2\t= 14 &quot;</code></td><td>yes</td></tr><tr><td>honest</td><td><code>&quot;\t2 *\t7 = 14\n&quot;</code></td><td>yes</td></tr><tr><td>honest</td><td><code>&quot;14\r\n&quot;</code></td><td>yes</td></tr><tr><td>honest</td><td><code>&quot; 2 *\t7 =14\n&quot;</code></td><td>yes</td></tr><tr><td>honest</td><td><code>&quot;14\t=\t2× 7&quot;</code></td><td>yes</td></tr><tr><td>noise</td><td><code>&quot; 3.l−  =l× ××4÷ 5 l−=&quot;</code></td><td>no</td></tr><tr><td>noise</td><td><code>&quot;9\t2 ×  7= 14&quot;</code></td><td>no</td></tr><tr><td>noise</td><td><code>&quot;\t14\t=\t   7  X 2\n&quot;</code></td><td>yes</td></tr><tr><td>noise</td><td><code>&quot;2 X  5 7\t=1\t4&quot;</code></td><td>no</td></tr><tr><td>noise</td><td><code>&quot; -971+&quot;</code></td><td>no</td></tr><tr><td>noise</td><td><code>&quot;\n14=\t− 4 X  7.\n&quot;</code></td><td>no</td></tr><tr><td>noise</td><td><code>&quot; 14 = 22\t *7.&quot;</code></td><td>no</td></tr><tr><td>noise</td><td><code>&quot;\t2 X\t7\t\t= 14&quot;</code></td><td>yes</td></tr></tbody></table><h3>Can the harness find a leak at all?</h3><p>The same harness was turned on 12 readers that each have one leak planted in them. <b class="pass">It found 12 of 12.</b> One of them is this crystal's own first bond-check, which let a line that contradicts itself bond.</p><table><thead><tr><th>the planted reader</th><th>found</th><th>the first reply that gave it away</th></tr></thead><tbody><tr><td>takes the value wherever it stands in the reply</td><td class="pass">yes</td><td><code>&quot;26 - 12 = 312&quot;</code> <span class="small">(the other operation on the same numbers)</span></td></tr><tr><td>takes any true line that comes to the value</td><td class="pass">yes</td><td><code>&quot;26 × 12 = 26\n26 × 12 = 312&quot;</code> <span class="small">(the right value after a wrong one)</span></td></tr><tr><td>lets the first line about the step decide</td><td class="pass">yes</td><td><code>&quot;+312&quot;</code> <span class="small">(the value with a unit or a mark)</span></td></tr><tr><td>takes the last number in the reply</td><td class="pass">yes</td><td><code>&quot;26 - 12 = 312&quot;</code> <span class="small">(the other operation on the same numbers)</span></td></tr><tr><td>takes a value that is nearly right</td><td class="pass">yes</td><td><code>&quot;\t12* 26  =312.2\n&quot;</code> <span class="small">(noise)</span></td></tr><tr><td>does not look at the step</td><td class="pass">yes</td><td><code>&quot;26 - 12 = 312&quot;</code> <span class="small">(the other operation on the same numbers)</span></td></tr><tr><td>takes a step either way round</td><td class="pass">yes</td><td><code>&quot;-266&quot;</code> <span class="small">(the value below nothing)</span></td></tr><tr><td>reads the sign off the value</td><td class="pass">yes</td><td><code>&quot;26 × 12 = -312&quot;</code> <span class="small">(the value below nothing)</span></td></tr><tr><td>reads the first line only</td><td class="pass">yes</td><td><code>&quot;26 × 12 = 312\n35 + 14 = 49&quot;</code> <span class="small">(a second line after the right one)</span></td></tr><tr><td>lets words go</td><td class="pass">yes</td><td><code>&quot;312  =\t26  x 12&quot;</code> <span class="small">(honest)</span></td></tr><tr><td>refuses everything</td><td class="pass">yes</td><td><code>&quot;26X12  =312.\r\n&quot;</code> <span class="small">(honest)</span></td></tr><tr><td>throws on a reply it cannot read</td><td class="pass">yes</td><td><code>&quot;26 × 12 = ３１２&quot;</code> <span class="small">(the value in look-alike characters)</span></td></tr></tbody></table></div></details>
-  <details><summary>What it cost</summary><div id="cost"><p>586 model calls for 84 crystals (7.0 each), 4743 tokens written and 73104 read, 1578 s of model time. The Climb's own loop on the same problems made 312 calls and wrote 14962 tokens. The widest round had 8 cells ready at once and the mean round 1.72: that is how many could be asked side by side on hardware that can. Here they were asked one after another.</p></div></details>
-</section>
-
-<section class="panel" id="limits">
-  <h2>What this does <em>not</em> prove</h2>
-  <ul>
+  <details><summary>What it cost</summary><div id="cost"><p>586 model calls for 84 crystals (7.0 each), 4743 tokens written and 73104 read, 1578 s of model time. The Climb's own loop on the same problems made 312 calls and wrote 14962 tokens. The widest round had 8 cells ready at once and the mean round 1.72: that is how many could be asked side by side on hardware that can. Here they were asked one after another.</p></div></details></div></details>
+    <details class="honest reveal" id="limits" style="max-width:none"><summary>What this does not prove</summary><div class="in legacy"><ul>
     <li><b>It is arithmetic.</b> The finish line cannot be argued with, and that is why it was chosen. Nothing here measures the law on another kind of work.</li>
     <li><b>The model did not get smarter.</b> It is the same small model at the last cell as at the first. What changed is what it was asked: one small step at a time, each checked.</li>
     <li><b>The checker holds the calculation.</b> It knows what the problem asks, pairs the numbers, and makes the splits. The model does every step. For your own work, that bookkeeping is the part you would write.</li>
@@ -160,12 +301,8 @@ footer{background:var(--abyss);border-top:1px solid var(--edge);padding:28px var
     <li><b>The attack on the bond-check is evidence, not a proof.</b> It makes many forged replies, many ways, and a second reader written apart from the bond-check agrees with it on every one. That shows no leak was found by this attack. It does not show that no forged reply exists.</li>
     <li><b>Depth 5, retraining the model, is not built.</b> Nothing here trains the model on what the crystal proved. The wall on this page is where this model, as it is, stops.</li>
     <li><b>A dark crystal is a result.</b> Where a cell dissolved, the model could not do a step that has nothing smaller. Those problems are on the glass, unlit, and in the count.</li>
-  </ul>
-</section>
-
-<section class="panel" id="blueprint">
-  <h2>How it is <em>built</em></h2>
-  <p class="small">"Gated" means a mutation test changed that part's code many ways, one small change at a time (a &lt; for a &lt;=, a + for a -), and its tests caught every one. "Equivalent" is a change that makes no difference to what the code does, so no test can catch it; each has its reason written down in <code>src/witness.baseline.json</code>.</p>
+  </ul></div></details>
+    <details class="honest reveal" id="blueprint" style="max-width:none"><summary>How it is built</summary><div class="in legacy"><p class="small">"Gated" means a mutation test changed that part's code many ways, one small change at a time (a &lt; for a &lt;=, a + for a -), and its tests caught every one. "Equivalent" is a change that makes no difference to what the code does, so no test can catch it; each has its reason written down in <code>src/witness.baseline.json</code>.</p>
   <div class="wrap"><table><thead><tr><th>part</th><th>what it is</th><th>status</th></tr></thead><tbody>
     <tr><td>The seed</td><td>The Climb's kernels, byte for byte as its seal froze them: exact arithmetic, the checker, the planner, the tracker, the memory (<code>vendor/climb/</code>).</td><td data-bind="bp.seed">the-climb at 9eafa1d, 11 files, each with the hash its seal gives it</td></tr>
     <tr><td>The growth law</td><td>Set, bond, split, dissolve, round by round (<code>src/grow.mjs</code>).</td><td data-bind="bp.grow"><span class="pass">built, gated 133/134 (1 equivalent, with the reason written down)</span></td></tr>
@@ -175,12 +312,8 @@ footer{background:var(--abyss);border-top:1px solid var(--edge);padding:28px var
     <tr><td>The numbers</td><td>Every count, every verdict and what each watcher put out (<code>src/measure.mjs</code>, <code>src/claims.mjs</code>, <code>src/stack.mjs</code>).</td><td data-bind="bp.measure"><span class="pass">built, gated 124/126 (2 equivalent, with the reason written down)</span></td></tr>
     <tr><td>The glass</td><td>WebGL2, written for this page: instanced octahedra, light split by colour, bloom at a quarter size (<code>page/gem.js</code>). It draws a record and decides nothing.</td><td>built</td></tr>
     <tr><td>The model</td><td>Llama 3.2 1B Instruct at 4 bits, run by WebLLM 0.2.79 on WebGPU, always picking its likeliest word.</td><td>not part of this repository</td></tr>
-  </tbody></table></div>
-</section>
-
-<section class="panel" id="buyers">
-  <h2>For your <em>business</em></h2>
-  <p><b>What it is.</b> A way to get multi-step work out of a small model you run yourself, with a proof for every result it gives and a plain "could not" for every result it does not. <span data-bind="b.what">In the published sealed run it completed 72 of 84 problems, none of them wrong, and left 12 dark.</span></p>
+  </tbody></table></div></div></details>
+    <details class="honest reveal" id="buyers" style="max-width:none"><summary>For your business</summary><div class="in legacy"><p><b>What it is.</b> A way to get multi-step work out of a small model you run yourself, with a proof for every result it gives and a plain "could not" for every result it does not. <span data-bind="b.what">In the published sealed run it completed 72 of 84 problems, none of them wrong, and left 12 dark.</span></p>
   <details><summary>Where it fits, and where it does not</summary>
     <p>It fits work that breaks into steps a program can check: reconciling figures, unit conversions through a chain, totals that must add up, any calculation with an audit trail. It does not fit judgement, open questions, or anything with no checker. If a step cannot be checked, it cannot bond.</p></details>
   <details><summary>For each role</summary><ul>
@@ -200,26 +333,346 @@ footer{background:var(--abyss);border-top:1px solid var(--edge);padding:28px var
     <li><b>"Some never finish."</b> Yes, and they are shown. <span data-bind="b.dark">12 of 84 in the published sealed run.</span></li>
   </ul></details>
   <p><b>The case for the board.</b> Most of the cost of AI in real work is the wrong answer nobody noticed. This is a small model, on hardware you own, that cannot give one without it showing. <span data-bind="b.board">In the published sealed run: 72 of 84 finished, 0 finished wrong, 12 stopped and said where.</span></p>
-  <div id="walk"><h3>A simulated buyer walk</h3><p class="small">A simulated buyer walk: a local 7B model played four buyers and read this page&#39;s text cold, part by part, one buyer at a time (16 readings). It is a model&#39;s first-pass audit, not a customer&#39;s opinion. Kar checked every gap it raised against the page and the page at phone width (375 px). Most of what it raised was one thing: this page used its own words (cell, shatters, stays dark, round, The Climb, depth 6) before saying what they mean. The real gaps are below, each with what was changed. Not changed: the claim texts themselves (&quot;The Climb did not bring home&quot;), which are sealed in CLAIMS.md and stay as they were registered; the list of words now explains them.</p><details><summary>The CFO of a 400-person firm: could follow the numbers, but not the words that carried them</summary><ul><li>&quot;A step it still cannot do shatters, and whatever needed it stays dark&quot; → a list of the words this page uses now opens Start here: a cell that is wrong and cannot be split smaller shatters, and every step that needed it is left out, so that problem gets no answer rather than a wrong one</li><li>&quot;The Climb brought home none that the crystal did not complete&quot;: what is The Climb? → the list now says The Climb is the build before this one, and that to bring a problem home is to get it right</li><li>&quot;576 cells, seed 20261134&quot; cannot be read → the list now defines a cell (one small sum the model is asked) and a seed (the number that fixes every random choice, so anyone can make the same attack again)</li><li>&quot;s of model time&quot; is not defined → now &quot;s in all spent waiting on the model&quot;</li></ul></details><details><summary>The CTO who also owns security: wanted the limits explained, not only stated</summary><ul><li>&quot;not pinned by hash&quot;: what is the implication? → it now says the page does not check the downloaded model files against a fixed fingerprint, so a changed file upstream would not be caught here</li><li>&quot;Depth 5 is not built&quot;: what is depth 5? → now &quot;Depth 5, retraining the model, is not built&quot;; the list explains the depths 0 to 6</li><li>&quot;gated&quot; in the blueprint is not explained → the blueprint now opens with what a mutation gate is, and what an equivalent change is</li></ul></details><details><summary>The COO who runs the teams that would use it: wanted to know what a person does, and what a round is</summary><ul><li>&quot;The ceiling is depth 6: a person&quot; → the list now says the depths are layers of checking from the step itself up to a person, and nothing changes the model without a person&#39;s yes</li><li>&quot;the widest round had 8 cells ready at once&quot;: what is a round? → the list now says a round is one set of cells asked together</li><li>&quot;The law needs a step checker and a way to split&quot;: which law? → now: the way it grows (check every step, split what fails) works wherever code can check a step and break a failed one into smaller ones</li></ul></details><details><summary>The owner-manager of a 12-person business, no technical staff: lost on &quot;bond-check&quot;, &quot;harness&quot; and &quot;leak&quot; in the watchers</summary><ul><li>&quot;bond-check&quot;, &quot;bonded&quot;, &quot;harness&quot;, &quot;leak&quot; are never explained → the list now defines a bond, the bond-check, a harness, a second reader and a planted leak</li><li>the run selector and the depth slider were too small to tap on a phone (18 px and 16 px tall) → both are now at least 32 px tall; nothing on the page scrolls sideways at 375 px</li></ul></details></div>
-</section>
-
-<section class="panel" id="paper">
-  <h2>White <em>paper</em>: checked to the smallest step</h2>
-  <p><b>The problem.</b> The Climb showed that a small model gets further when code checks each line of its working. But a line was its smallest unit: a wrong line was worked again whole, and a problem the model could not hold in one reply stayed out of reach however many passes it was given.</p>
+  <div id="walk"><h3>A simulated buyer walk</h3><p class="small">A simulated buyer walk: a local 7B model played four buyers and read this page&#39;s text cold, part by part, one buyer at a time (16 readings). It is a model&#39;s first-pass audit, not a customer&#39;s opinion. Kar checked every gap it raised against the page and the page at phone width (375 px). Most of what it raised was one thing: this page used its own words (cell, shatters, stays dark, round, The Climb, depth 6) before saying what they mean. The real gaps are below, each with what was changed. Not changed: the claim texts themselves (&quot;The Climb did not bring home&quot;), which are sealed in CLAIMS.md and stay as they were registered; the list of words now explains them.</p><details><summary>The CFO of a 400-person firm: could follow the numbers, but not the words that carried them</summary><ul><li>&quot;A step it still cannot do shatters, and whatever needed it stays dark&quot; → a list of the words this page uses now opens Start here: a cell that is wrong and cannot be split smaller shatters, and every step that needed it is left out, so that problem gets no answer rather than a wrong one</li><li>&quot;The Climb brought home none that the crystal did not complete&quot;: what is The Climb? → the list now says The Climb is the build before this one, and that to bring a problem home is to get it right</li><li>&quot;576 cells, seed 20261134&quot; cannot be read → the list now defines a cell (one small sum the model is asked) and a seed (the number that fixes every random choice, so anyone can make the same attack again)</li><li>&quot;s of model time&quot; is not defined → now &quot;s in all spent waiting on the model&quot;</li></ul></details><details><summary>The CTO who also owns security: wanted the limits explained, not only stated</summary><ul><li>&quot;not pinned by hash&quot;: what is the implication? → it now says the page does not check the downloaded model files against a fixed fingerprint, so a changed file upstream would not be caught here</li><li>&quot;Depth 5 is not built&quot;: what is depth 5? → now &quot;Depth 5, retraining the model, is not built&quot;; the list explains the depths 0 to 6</li><li>&quot;gated&quot; in the blueprint is not explained → the blueprint now opens with what a mutation gate is, and what an equivalent change is</li></ul></details><details><summary>The COO who runs the teams that would use it: wanted to know what a person does, and what a round is</summary><ul><li>&quot;The ceiling is depth 6: a person&quot; → the list now says the depths are layers of checking from the step itself up to a person, and nothing changes the model without a person&#39;s yes</li><li>&quot;the widest round had 8 cells ready at once&quot;: what is a round? → the list now says a round is one set of cells asked together</li><li>&quot;The law needs a step checker and a way to split&quot;: which law? → now: the way it grows (check every step, split what fails) works wherever code can check a step and break a failed one into smaller ones</li></ul></details><details><summary>The owner-manager of a 12-person business, no technical staff: lost on &quot;bond-check&quot;, &quot;harness&quot; and &quot;leak&quot; in the watchers</summary><ul><li>&quot;bond-check&quot;, &quot;bonded&quot;, &quot;harness&quot;, &quot;leak&quot; are never explained → the list now defines a bond, the bond-check, a harness, a second reader and a planted leak</li><li>the run selector and the depth slider were too small to tap on a phone (18 px and 16 px tall) → both are now at least 32 px tall; nothing on the page scrolls sideways at 375 px</li></ul></details></div></div></details>
+    <details class="honest reveal" id="paper" style="max-width:none"><summary>White paper: checked to the smallest step</summary><div class="in legacy"><p><b>The problem.</b> The Climb showed that a small model gets further when code checks each line of its working. But a line was its smallest unit: a wrong line was worked again whole, and a problem the model could not hold in one reply stayed out of reach however many passes it was given.</p>
   <p><b>The idea.</b> Take the check down to the smallest unit there is: one small sum the model is asked at a time, a cell. A cell that bonds is exact and is never asked again. One that fails is split into strictly smaller cells. One that fails and cannot be split shatters, and whatever needed it gets no answer. So a problem that completes is right by construction: every cell under it was checked by exact arithmetic. Cells that do not depend on each other form rounds, and could be asked side by side.</p>
   <p><b>How the check is trusted.</b> The bond-check is the floor everything stands on, so it was attacked before anything was grown on it: forged replies of many kinds, a second reader written apart that must rule the same way, and twelve copies of the check with one leak planted in each, which the harness had to find. Each layer above it is a small module with a hard limit, and each is mutation-gated.</p>
   <p><b>What this page tests.</b> Whether growing by single checked cells completes more sealed problems than the same model answering once; whether, on the hardest problems that carry a calculation, it completes ones The Climb's loop did not; and whether any completed problem is wrong. The problems were sealed and the claims written down before the run; the numbers above show each one's result.</p>
   <p><b>What it does not show.</b> That it reaches every problem: a step the model cannot do even at the smallest size is a wall, and the page shows it in red. That the model got better: nothing here trains it; that would be depth 5, which is not built.</p>
   <p><b>The one rule.</b> A crystal that completes is right, because every cell under it bonded; one that does not complete gives no answer, never a wrong one.</p>
-  <p class="small">The records: <a href="data/runs/sealed.json">the sealed run</a>, <a href="data/runs/dev.json">the dev run</a>, <a href="data/gates.json">the mutation gates</a>, <a href="CLAIMS.md">the claims</a>, <a href="SEAL.md">the seal</a>.</p>
+  <p class="small">The records: <a href="data/runs/sealed.json">the sealed run</a>, <a href="data/runs/dev.json">the dev run</a>, <a href="data/gates.json">the mutation gates</a>, <a href="CLAIMS.md">the claims</a>, <a href="SEAL.md">the seal</a>.</p></div></details>
+  </div>
 </section>
-</main>
+
 <footer>
-  The Crystal · built by Kar · MIT licence (holder Simon Gant) · supplied by <a href="https://www.ai-nativesolutions.com">AI Native Solutions</a><br>
-  Powered by the Konomi architecture, created by Thomas Frumkin.<br>
-  AI you own. Proof you can re-run. · <a href="https://github.com/sjgant80-hub/the-crystal">source</a> · <a href="CLAIMS.md">claims</a> · <a href="https://sjgant80-hub.github.io/the-climb/">The Climb, the seed it grew from</a>
+  <div class="wrap frow">
+    <div><div class="brand">The Crystal</div><div class="fnote">The Crystal · built by Kar · MIT licence (holder Simon Gant) · supplied by <a href="https://www.ai-nativesolutions.com">AI Native Solutions</a><br>
+  AI you own. Proof you can re-run. · <a href="https://github.com/sjgant80-hub/the-crystal">source</a> · <a href="CLAIMS.md">claims</a> · <a href="https://sjgant80-hub.github.io/the-climb/">The Climb, the seed it grew from</a><br>Powered by the Konomi architecture, created by Thomas Frumkin.</div></div>
+    <div class="taglist"><span>›</span> AI you own. Proof you can re-run.<br><span>›</span> A small model that says "I can't tell."<br><span>›</span> Nothing leaves your browser.</div>
+  </div>
 </footer>
 <script type="module">
+// vendor/house/crystal.js, inlined byte for byte (imports read the scopes above; export removed)
+const CRYSTAL = (() => {
+// crystal.js — the house hero: a living crystal, drawn by one fragment shader. No library is fetched.
+//
+// It is a real solid, not a picture of one: a 32-faced gem (an icosahedron cut by a dodecahedron) that every pixel's
+// ray is intersected with exactly. Light is bent into the body, carried through it, turned back where it cannot leave
+// and bent out again, once for each of three colours, so the facets split light the way glass does. The body absorbs
+// as it carries; its edges burn; a slow lattice of light moves inside it.
+//
+// And it is bound to data. Each of the 32 faces holds a state the page gives it: dark, proven (cyan), sealing (gold,
+// breathing) or failed (red, kept). A page lights a face only for a receipt it has re-derived, so the crystal is the
+// record, not decoration. A face can be pointed at and pressed: the page is told which one.
+//
+//   mount(canvas, options) → { setFaces, setEnergy, setCentre, onHover, onPick, redraw, destroy, FACES }   or null
+// It decides nothing. With no WebGL the canvas is left as it is (the page's own background shows) and null is returned.
+
+const FACES = 32;
+const STATE = { dark: 0, proven: 1, sealing: 2, failed: 3 };
+const PHI = (1 + Math.sqrt(5)) / 2;
+const unit = (v) => { const l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; };
+// ten icosahedron normals, then six dodecahedron normals; each stands for a pair of opposite faces (i and i + 16)
+const NORMALS = [[1, 1, 1], [-1, 1, 1], [1, -1, 1], [1, 1, -1], [0, 1, PHI + 1], [0, -1, PHI + 1], [PHI + 1, 0, 1], [-PHI - 1, 0, 1], [1, PHI + 1, 0], [-1, PHI + 1, 0], [0, PHI, 1], [0, -PHI, 1], [1, 0, PHI], [-1, 0, PHI], [PHI, 1, 0], [-PHI, 1, 0]].map(unit);
+const R_ICOSA = 1.2, R_CUT = 1.37, CAMERA = 5.2, FOV = 0.8284;
+
+const VERT = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+const FRAG = `
+precision highp float;
+uniform vec2 uRes; uniform float uTime; uniform mat3 uRot; uniform mat3 uInv; uniform vec3 uCen;
+uniform vec3 uN[16]; uniform float uR[16]; uniform float uState[32]; uniform float uEnergy; uniform float uHot;
+const vec3 CYAN = vec3(0.286, 0.910, 0.784); const vec3 GOLD = vec3(1.0, 0.812, 0.416); const vec3 RED = vec3(1.0, 0.42, 0.42);
+float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+float hash3(vec3 p){ p = fract(p * 0.3183099 + 0.1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
+float noise(vec3 x){ vec3 i = floor(x), f = fract(x); f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(mix(hash3(i), hash3(i + vec3(1,0,0)), f.x), mix(hash3(i + vec3(0,1,0)), hash3(i + vec3(1,1,0)), f.x), f.y),
+             mix(mix(hash3(i + vec3(0,0,1)), hash3(i + vec3(1,0,1)), f.x), mix(hash3(i + vec3(0,1,1)), hash3(i + vec3(1,1,1)), f.x), f.y), f.z); }
+vec3 tint(float s){ return s < 0.5 ? vec3(0.0) : s < 1.5 ? CYAN : s < 2.5 ? GOLD : RED; }
+// the solid: sixteen pairs of planes. Where a ray enters and leaves, through which faces, and how near an edge.
+bool solid(vec3 ro, vec3 rd, out float tN, out float tF, out vec3 nN, out vec3 nF, out float sN, out float sF, out float eN, out float eF, out float iN){
+  tN = -1e9; tF = 1e9; float tN2 = -1e9; float tF2 = 1e9; nN = vec3(0.0); nF = vec3(0.0); sN = 0.0; sF = 0.0; iN = -1.0;
+  for (int i = 0; i < 16; i++){
+    vec3 n = uN[i]; float dn = dot(rd, n); dn = abs(dn) < 1e-5 ? 1e-5 : dn; float po = dot(ro, n);
+    float tp = (uR[i] - po) / dn; float tm = (-uR[i] - po) / dn;
+    float ta; float tb; vec3 na; vec3 nb; float sa; float sb; float ia;
+    if (dn < 0.0) { ta = tp; na = n; sa = uState[i]; ia = float(i); tb = tm; nb = -n; sb = uState[i + 16]; }
+    else { ta = tm; na = -n; sa = uState[i + 16]; ia = float(i) + 16.0; tb = tp; nb = n; sb = uState[i]; }
+    if (ta > tN) { tN2 = tN; tN = ta; nN = na; sN = sa; iN = ia; } else if (ta > tN2) { tN2 = ta; }
+    if (tb < tF) { tF2 = tF; tF = tb; nF = nb; sF = sb; } else if (tb < tF2) { tF2 = tb; }
+  }
+  eN = tN - tN2; eF = tF2 - tF;
+  return tN < tF && tF > 0.0;
+}
+// what the crystal reflects and bends: a dark sea, three lamps, a horizon, slow bars of light
+vec3 world(vec3 d){
+  vec3 c = mix(vec3(0.0006, 0.003, 0.006), vec3(0.006, 0.028, 0.042), pow(clamp(d.y * 0.5 + 0.5, 0.0, 1.0), 1.5));
+  c += CYAN * 2.2 * pow(max(dot(d, normalize(vec3(0.6, 0.7, 0.4))), 0.0), 26.0);
+  c += vec3(0.6, 0.8, 1.0) * 1.3 * pow(max(dot(d, normalize(vec3(-0.7, 0.3, 0.5))), 0.0), 60.0);
+  c += GOLD * 0.55 * pow(max(dot(d, normalize(vec3(0.1, -0.8, 0.5))), 0.0), 28.0);
+  c += vec3(0.15, 0.5, 0.45) * exp(-abs(d.y) * 14.0) * 0.12;
+  float bars = smoothstep(0.9, 1.0, sin(d.x * 9.0 + d.z * 5.0 + uTime * 0.07) * 0.5 + 0.5);
+  return c + vec3(0.5, 0.9, 0.85) * bars * 0.22 * smoothstep(-0.2, 0.6, d.y);
+}
+// one colour of light through the body: bent in, carried, turned back once if it cannot leave, bent out
+vec3 through(vec3 p, vec3 rd, vec3 n, float ior, out float path, out float sX, out float eX){
+  vec3 d = refract(rd, n, 1.0 / ior); vec3 o = p - n * 0.003; vec3 leave = d; path = 0.0; sX = 0.0; eX = 1.0;
+  for (int b = 0; b < 2; b++){
+    float tN; float tF; vec3 nN; vec3 nF; float sN; float sF; float eN; float eF; float iN;
+    solid(o, d, tN, tF, nN, nF, sN, sF, eN, eF, iN);
+    path += max(tF, 0.0);
+    if (b == 0) { sX = sF; eX = eF; }
+    vec3 r = refract(d, -nF, ior);
+    if (dot(r, r) > 0.0) { leave = r; break; }
+    vec3 q = o + d * tF; d = reflect(d, -nF); o = q - nF * 0.003; leave = d;
+  }
+  return leave;
+}
+void main(){
+  vec2 uv = (gl_FragCoord.xy - 0.5 * uRes) / uRes.y;
+  vec3 ro = vec3(0.0, 0.0, ${CAMERA.toFixed(1)}); vec3 rd = normalize(vec3(uv * ${FOV.toFixed(4)}, -1.0));
+  // the room: depth, a breath of light round the crystal, three drifts of dust
+  vec3 col = mix(vec3(0.0002, 0.0008, 0.0016), vec3(0.0016, 0.0042, 0.0085), exp(-length(uv - vec2(0.36, 0.3)) * 1.9));
+  float near = length(cross(rd, uCen - ro));
+  col += CYAN * 0.010 * uEnergy * exp(-near * near * 0.42);
+  for (int k = 0; k < 3; k++){
+    float sc = 14.0 + float(k) * 11.0; vec2 g = uv * sc + vec2(uTime * 0.010 * float(k + 1), uTime * 0.006);
+    vec2 id = floor(g); vec2 f = fract(g) - 0.5; float h = hash(id + float(k) * 17.0);
+    vec2 o = vec2(hash(id + 3.1), hash(id + 7.7)) - 0.5; float tw = 0.5 + 0.5 * sin(uTime * (0.6 + h * 2.0) + h * 40.0);
+    col += vec3(0.56, 0.91, 0.85) * smoothstep(0.045, 0.0, length(f - o * 0.7)) * step(0.9, h) * tw * (0.22 - 0.05 * float(k));
+  }
+  vec3 lo = uInv * (ro - uCen); vec3 ld = uInv * rd;
+  float tN; float tF; vec3 nN; vec3 nF; float sN; float sF; float eN; float eF; float iN;
+  if (solid(lo, ld, tN, tF, nN, nF, sN, sF, eN, eF, iN) && tN > 0.0){
+    vec3 p = lo + ld * tN; float facing = max(dot(-ld, nN), 0.0); float fres = pow(1.0 - facing, 3.0);
+    float pa; float sa; float ea; float pathG; float sX; float eX;
+    vec3 dr = through(p, ld, nN, 1.41, pa, sa, ea);
+    vec3 dg = through(p, ld, nN, 1.45, pathG, sX, eX);
+    vec3 db = through(p, ld, nN, 1.50, pa, sa, ea);
+    vec3 bent = vec3(world(uRot * dr).r, world(uRot * dg).g, world(uRot * db).b);
+    vec3 body = exp(-pathG * vec3(1.5, 0.38, 0.52) * 0.8);
+    vec3 c = mix(bent * body, world(uRot * reflect(ld, nN)), 0.06 + 0.9 * fres);
+    vec3 cN = tint(sN); vec3 cX = tint(sX);
+    float breath = (sN > 1.5 && sN < 2.5) ? 0.6 + 0.4 * sin(uTime * 1.8 + iN) : 1.0;
+    c += cN * (0.012 + 0.10 * fres) * breath * uEnergy;                 // a lit face glows from within
+    c += cX * 0.03 * body.g * uEnergy;                                  // the far side, seen through the body
+    float edge = exp(-eN * 90.0) + 0.35 * exp(-eX * 60.0) * body.g;      // edges burn
+    c += mix(vec3(0.16, 0.55, 0.48), cN, step(0.5, sN)) * edge * (0.35 + 0.45 * uEnergy);
+    vec3 mid = p + refract(ld, nN, 1.0 / 1.45) * pathG * 0.5;           // the lattice of light inside
+    c += CYAN * pow(noise(mid * 3.2 + vec3(0.0, uTime * 0.12, uTime * 0.05)), 3.0) * 0.05 * uEnergy;
+    c += vec3(0.5, 0.9, 0.85) * (1.0 - step(0.5, abs(iN - uHot))) * 0.07;         // the face under the pointer
+    col = c;
+  }
+  col *= 1.0 - 0.5 * pow(length(uv * vec2(0.75, 1.0)), 2.2);
+  col = 1.0 - exp(-col * 2.4);
+  col = pow(col, vec3(0.4545)); col = mix(col, col * col * (3.0 - 2.0 * col), 0.65) + (hash(gl_FragCoord.xy + uTime) - 0.5) * 0.014;
+  gl_FragColor = vec4(col, 1.0);
+}`;
+
+const mul = (m, v) => [m[0] * v[0] + m[3] * v[1] + m[6] * v[2], m[1] * v[0] + m[4] * v[1] + m[7] * v[2], m[2] * v[0] + m[5] * v[1] + m[8] * v[2]];
+// rot(yaw, pitch) → the turn of the crystal as a column-major 3×3, and its inverse (its transpose)
+function rot(yaw, pitch) {
+  const cy = Math.cos(yaw), sy = Math.sin(yaw), cx = Math.cos(pitch), sx = Math.sin(pitch);
+  const m = [cy, sx * sy, -cx * sy, 0, cx, sx, sy, -sx * cy, cx * cy];
+  return { m, inv: [m[0], m[3], m[6], m[1], m[4], m[7], m[2], m[5], m[8]] };
+}
+// faceAt(u, v, aspect, turn, centre, cut) → the face (0…31) a ray through that point of the screen enters by, or -1.
+// u, v run 0…1 from the top left. The same sum the shader does, so the page and the picture agree on which face it is.
+function faceAt(u, v, aspect, turn, centre, cut) {
+  const x = (u - 0.5) * aspect * FOV, y = (0.5 - v) * FOV, l = Math.hypot(x, y, 1);
+  const rd = mul(turn.inv, [x / l, y / l, -1 / l]), ro = mul(turn.inv, [-centre[0], -centre[1], CAMERA - centre[2]]);
+  let tN = -1e9, tF = 1e9, face = -1;
+  for (let i = 0; i < 16; i++) {
+    const n = NORMALS[i], r = i < 10 ? R_ICOSA : cut;
+    let dn = rd[0] * n[0] + rd[1] * n[1] + rd[2] * n[2]; if (Math.abs(dn) < 1e-5) dn = 1e-5;
+    const po = ro[0] * n[0] + ro[1] * n[1] + ro[2] * n[2], tp = (r - po) / dn, tm = (-r - po) / dn;
+    const ta = dn < 0 ? tp : tm, tb = dn < 0 ? tm : tp;
+    if (ta > tN) { tN = ta; face = dn < 0 ? i : i + 16; }
+    if (tb < tF) tF = tb;
+  }
+  return tN < tF && tN > 0 ? face : -1;
+}
+
+function mount(canvas, options) {
+  const opt = options || {};
+  let gl = null;
+  try { gl = canvas && canvas.getContext ? canvas.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'high-performance' }) : null; } catch { gl = null; }
+  if (!gl) return null;
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null; };
+  const vs = sh(gl.VERTEX_SHADER, VERT), fs = sh(gl.FRAGMENT_SHADER, FRAG);
+  if (!vs || !fs) return null;
+  const prog = gl.createProgram(); gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+  gl.useProgram(prog);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const a = gl.getAttribLocation(prog, 'a'); gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
+  const U = (n) => gl.getUniformLocation(prog, n);
+  const u = { res: U('uRes'), time: U('uTime'), rot: U('uRot'), inv: U('uInv'), cen: U('uCen'), n: U('uN[0]'), r: U('uR[0]'), state: U('uState[0]'), energy: U('uEnergy'), hot: U('uHot') };
+  gl.uniform3fv(u.n, new Float32Array(NORMALS.flat()));
+  const still = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const S = { faces: new Float32Array(FACES), energy: opt.energy ?? 0.8, target: opt.energy ?? 0.8, centre: [0, 0, 0], yaw: 0.5, pitch: 0.18, vy: 0, vp: 0, drag: null, hot: -1, scale: 1, ms: 16, t: 0, last: 0, seen: true, raf: 0, dead: false, hover: null, pick: null, turn: rot(0.5, 0.18), cut: R_CUT };
+  const size = () => {
+    const w = canvas.clientWidth || 1, h = canvas.clientHeight || 1, d = Math.min(1.5, globalThis.devicePixelRatio || 1) * S.scale;
+    const W = Math.max(2, Math.round(w * d)), H = Math.max(2, Math.round(h * d));
+    if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
+    S.centre = typeof opt.centre === 'function' ? opt.centre(w, h) : [w > 820 ? 1.25 : 0, w > 820 ? 0 : 0.55, 0];
+  };
+  const draw = () => {
+    size();
+    S.turn = rot(S.yaw, S.pitch);
+    S.cut = R_CUT + 0.07 * Math.sin(S.t * 0.35);                        // the cut faces open and close: it breathes
+    const r = new Float32Array(16); for (let i = 0; i < 16; i++) r[i] = i < 10 ? R_ICOSA : S.cut;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.uniform2f(u.res, canvas.width, canvas.height); gl.uniform1f(u.time, S.t); gl.uniformMatrix3fv(u.rot, false, new Float32Array(S.turn.m)); gl.uniformMatrix3fv(u.inv, false, new Float32Array(S.turn.inv));
+    gl.uniform3f(u.cen, S.centre[0], S.centre[1], S.centre[2]); gl.uniform1fv(u.r, r); gl.uniform1fv(u.state, S.faces); gl.uniform1f(u.energy, S.energy); gl.uniform1f(u.hot, S.hot);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  };
+  const frame = (now) => {
+    if (S.dead) return;
+    S.raf = requestAnimationFrame(frame);
+    if (!S.seen || (typeof document !== 'undefined' && document.hidden)) { S.last = now; return; }
+    const dt = Math.min(0.05, (now - (S.last || now)) / 1000); S.last = now;
+    S.ms += ((dt * 1000) - S.ms) * 0.08;
+    if (S.ms > 30 && S.scale > 0.45) S.scale *= 0.92; else if (S.ms < 14 && S.scale < 1) S.scale = Math.min(1, S.scale * 1.03);
+    if (!still) { S.t += dt; if (!S.drag) { S.yaw += dt * 0.16 + S.vy; S.pitch += (0.18 + 0.12 * Math.sin(S.t * 0.22) - S.pitch) * 0.02 + S.vp; S.vy *= 0.94; S.vp *= 0.94; } }
+    S.energy += (S.target - S.energy) * 0.04;
+    draw();
+  };
+  const where = (e) => { const b = canvas.getBoundingClientRect(); return [(e.clientX - b.left) / b.width, (e.clientY - b.top) / b.height, b.width / b.height]; };
+  const face = (e) => { const [x, y, asp] = where(e); return faceAt(x, y, asp, S.turn, S.centre, S.cut); };
+  const down = (e) => { S.drag = { x: e.clientX, y: e.clientY, moved: 0 }; };
+  const move = (e) => {
+    if (S.drag) { const dx = e.clientX - S.drag.x, dy = e.clientY - S.drag.y; S.drag.x = e.clientX; S.drag.y = e.clientY; S.drag.moved += Math.abs(dx) + Math.abs(dy); S.yaw += dx * 0.006; S.pitch = Math.max(-1.2, Math.min(1.2, S.pitch + dy * 0.006)); S.vy = dx * 0.0006; S.vp = 0; if (still) draw(); return; }
+    const f = face(e); if (f !== S.hot) { S.hot = f; canvas.style.cursor = f >= 0 ? 'pointer' : 'grab'; if (S.hover) S.hover(f, e); if (still) draw(); }
+  };
+  const up = (e) => { const d = S.drag; S.drag = null; if (d && d.moved < 6 && S.pick) { const f = face(e); if (f >= 0) S.pick(f, e); } };
+  const leave = () => { S.drag = null; if (S.hot !== -1) { S.hot = -1; if (S.hover) S.hover(-1, null); if (still) draw(); } };
+  canvas.addEventListener('pointerdown', down); canvas.addEventListener('pointermove', move); canvas.addEventListener('pointerup', up); canvas.addEventListener('pointerleave', leave);
+  canvas.style.cursor = 'grab'; canvas.style.touchAction = 'pan-y';
+  let io = null;
+  if (typeof IntersectionObserver === 'function') { io = new IntersectionObserver((es) => { for (const e of es) S.seen = e.isIntersecting; }); io.observe(canvas); }
+  const onSize = () => { if (still) draw(); };
+  if (typeof addEventListener === 'function') addEventListener('resize', onSize);
+  draw();
+  S.raf = requestAnimationFrame(frame);
+  return {
+    FACES,
+    setFaces(states) { for (let i = 0; i < FACES; i++) S.faces[i] = Number(states && states[i]) || 0; if (still) draw(); },
+    setEnergy(x) { S.target = Math.max(0, Math.min(1.4, Number(x) || 0)); },
+    setCentre(fn) { opt.centre = fn; if (still) draw(); },
+    onHover(fn) { S.hover = fn; }, onPick(fn) { S.pick = fn; },
+    redraw: draw,
+    destroy() { S.dead = true; cancelAnimationFrame(S.raf); if (io) io.disconnect(); canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointermove', move); canvas.removeEventListener('pointerup', up); canvas.removeEventListener('pointerleave', leave); if (typeof removeEventListener === 'function') removeEventListener('resize', onSize); },
+  };
+}
+return { FACES, STATE, NORMALS, rot, faceAt, mount };
+})();
+
+// vendor/house/house.js, inlined byte for byte (imports read the scopes above; export removed)
+const HOUSE = (() => {
+// house.js — the kit's motion: what makes a house page feel alive without saying anything untrue.
+//   reveal(root)          sections rise into place as they are reached
+//   light(root)           a soft light follows the pointer across cards
+//   count(el, text)       a receipt's number runs up to its value when first seen; the value written is exactly `text`
+//   bindScroll(crystal)   the crystal's light answers the scroll: brightest at the top, quieter as the page is read
+// Each is safe to call with nothing to act on, and does nothing where motion is not wanted.
+const still = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function reveal(root) {
+  const els = root && root.querySelectorAll ? [...root.querySelectorAll('.reveal')] : [];
+  if (typeof IntersectionObserver !== 'function' || still()) return;                 // nothing is hidden, so nothing needs showing
+  if (root.documentElement && root.documentElement.classList) root.documentElement.classList.add('js');   // only now may .reveal start hidden
+  const io = new IntersectionObserver((es) => { for (const e of es) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }, { threshold: 0.14 });
+  for (const el of els) io.observe(el);
+}
+
+function light(root) {
+  if (!root || !root.addEventListener || still()) return;
+  root.addEventListener('pointermove', (e) => {
+    const card = e.target && e.target.closest ? e.target.closest('.act') : null;
+    if (!card) return;
+    const b = card.getBoundingClientRect();
+    card.style.setProperty('--mx', `${e.clientX - b.left}px`); card.style.setProperty('--my', `${e.clientY - b.top}px`);
+  });
+}
+
+// count(el, text): text is the final, true text of the number (for example "31.6%"). Only its digits move, and only
+// on the way in: when it stops, the element holds exactly `text`.
+function count(el, text) {
+  const final = String(text), m = final.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
+  if (!el || !m || still() || typeof requestAnimationFrame !== 'function' || typeof IntersectionObserver !== 'function') { if (el) el.textContent = final; return; }
+  const to = Number(m[2]), places = (m[2].split('.')[1] || '').length;
+  el.textContent = final;
+  const io = new IntersectionObserver((es) => {
+    if (!es.some((e) => e.isIntersecting)) return;
+    io.disconnect();
+    const t0 = performance.now(), run = (now) => { const k = Math.min(1, (now - t0) / 900), ease = 1 - (1 - k) ** 3; el.textContent = k < 1 ? `${m[1]}${(to * ease).toFixed(places)}${m[3]}` : final; if (k < 1) requestAnimationFrame(run); };
+    requestAnimationFrame(run);
+  }, { threshold: 0.4 });
+  io.observe(el);
+}
+
+function bindScroll(crystal, base) {
+  if (!crystal || typeof addEventListener !== 'function') return;
+  const top = base ?? 1, set = () => crystal.setEnergy(top * Math.max(0.35, 1 - (globalThis.scrollY || 0) / ((globalThis.innerHeight || 800) * 1.2)));
+  addEventListener('scroll', set, { passive: true }); set();
+}
+return { reveal, light, count, bindScroll };
+})();
+
+// vendor/house/receipts.mjs, inlined byte for byte (imports read the scopes above; export removed)
+const RECEIPTS = (() => {
+// receipts.mjs — read a flagship's own published page for the numbers it has sealed, so that the front door never
+// types a number: it reads each one from the page that proves it, and can read it again, live, in a visitor's tab.
+//
+// A flagship's page is baked by its own gated kernels from its own sealed records. What is read here is what that
+// page says, word for word; this file adds nothing and rounds nothing.
+//
+//   text(html)              the page as a visitor reads it: the body, tags gone, spaces single
+//   claims(html)            every pre-registered claim on the page: [{ id, name, result, pass }] (pass: true, false,
+//                           or null while it is still sealing). Both layouts are read: the table and the house stack.
+//   headline(repo, html)    that build's headline receipt, or null when its page does not state one:
+//                           { was, now, of, label }  (was → now, out of how many, in plain words)
+//   extra(repo, html)       further receipts a page states: [{ key, value, of, label }]
+// Pure and total.
+const str = (x) => (typeof x === 'string' ? x : '');
+const un = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+const flat = (s) => un(s.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
+
+// shown(html) → the body as markup, without its scripts and styles: only what a visitor is shown is ever read
+const shown = (html) => { const h = str(html), a = h.search(/<body[\s>]/i); return a === -1 ? '' : h.slice(a).replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' '); };
+
+function text(html) { return flat(shown(html)); }
+
+function claims(html) {
+  const h = shown(html), out = [], seen = new Set();
+  const add = (id, name, result, pass) => { if (!seen.has(id)) { seen.add(id); out.push({ id, name: flat(name), result: flat(result), pass }); } };
+  // the table: <tr><td><b>C1</b> name</td><td>the bar</td><td>what happened</td><td><span class="pass">PASS</span>…
+  for (const m of h.matchAll(/<tr><td><b>([A-Z]\d{1,2})<\/b>([^<]*)<\/td>([\s\S]*?)<\/tr>/g)) {
+    const cells = [...m[3].matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/g)].map((c) => c[1]);
+    add(m[1], m[2], cells[1] ?? '', /class="pass">PASS</.test(m[3]) ? true : /class="fail">FAIL</.test(m[3]) ? false : null);
+  }
+  // the house stack: <div class="srow"><div class="d">K1</div><div class="nm"><b>name</b><span>what happened</span><span class="tag cy">pass</span>
+  for (const m of h.matchAll(/<div class="srow[^"]*"><div class="d">([A-Z]\d{1,2})<\/div><div class="nm"><b>([^<]*)<\/b><span>([\s\S]*?)<\/span><span class="tag (cy|rd|gd)">/g)) add(m[1], m[2], m[3], m[4] === 'cy' ? true : m[4] === 'rd' ? false : null);
+  return out;
+}
+
+const READ = {
+  'the-climb': (t) => { const m = t.match(/right at the first try (\d+(?:\.\d+)?%) \((\d+) of (\d+)\) right after the climb (\d+(?:\.\d+)?%) \((\d+) of \3\)/); return m && { was: m[1], now: m[4], of: Number(m[3]), label: 'sealed problems right: at one try, then after the climb' }; },
+  'the-crystal': (t) => { const m = t.match(/one try (\d+(?:\.\d+)?%), the crystal (\d+(?:\.\d+)?%) of (\d+) problems/); return m && { was: m[1], now: m[2], of: Number(m[3]), label: 'sealed problems right: at one try, then as a crystal' }; },
+  'the-verifier-set': (t) => { const m = t.match(/got (\d+) of (\d+) right; on the \d+ problems that have no answer it gave a number \d+ times\. The lattice brought (\d+) of \2 out/); return m && { was: m[1], now: m[3], of: Number(m[2]), label: 'sealed problems that came out as they should: unchecked, then checked' }; },
+  'the-distillation': (t) => { const m = t.match(/(\d+(?:\.\d+)?%) → (\d+(?:\.\d+)?%) Right, cold, on (\d+) held-out problems/); return m && { was: m[1], now: m[2], of: Number(m[3]), label: 'held-out problems right, cold: before, then after training on its own verified work' }; },
+};
+const MORE = {
+  'the-crystal': (t) => { const m = t.match(/forged replies that bonded (\d+) of (\d+)/); return m ? [{ key: 'forged', value: m[1], of: Number(m[2]), label: 'forged replies that got past the check' }] : []; },
+  'the-verifier-set': (t) => { const m = t.match(/on the (\d+) with no answer it gave a number (\d+) times\. With the checks, \d+ of \d+ came out as they should, and none of those \1 was answered/); return m ? [{ key: 'unanswerable', value: m[2], after: '0', of: Number(m[1]), label: 'confident numbers given to questions that have no answer: unchecked, then checked' }] : []; },
+};
+const own = (map, repo) => (typeof repo === 'string' && Object.prototype.hasOwnProperty.call(map, repo) ? map[repo] : null);
+
+function headline(repo, html) { const f = own(READ, repo); return f ? f(text(html)) || null : null; }
+function extra(repo, html) { const f = own(MORE, repo); return f ? f(text(html)) : []; }
+return { text, claims, headline, extra };
+})();
+
 // vendor/climb/src/sha256.mjs, inlined byte for byte (imports read the scopes above; export removed)
 const SHA = (() => {
 // sha256.mjs — SHA-256 of a string's UTF-8 bytes, as lowercase hex. Pure and synchronous, so the lane check that
@@ -2891,6 +3344,34 @@ const ready = (async function start() {
   if (typeof navigator !== 'undefined' && navigator.serviceWorker && typeof location !== 'undefined' && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 })();
 window.__crystal = { ready, S, runSet, load, render, show, play, rejudge, attackUI, tasksOf };
+
+// house-app.js — the house layer. It adds nothing to what this build proves: it waits for the page script above to
+// finish, reads what that script worked out from the sealed run (with the house's receipts reader, vendored), and
+// shows it as receipts, a claim stack and a crystal whose lit faces are this build's claims.
+window.__houseLayer = (async () => {
+  await window.__crystal.ready;
+  const KEYS = {"ids":["status","stackTable","claimsTable","floor","attackTable","cost","walk"],"binds":["n.bonds","n.reused","n.dissolved","n.depth","n.complete","h.seed","h.law","h.source","bp.seed","bp.grow","bp.lattice","bp.bond","bp.fuzz","bp.measure","b.what","b.cost","b.slow","b.dark","b.board"]};
+  const el = (id) => document.getElementById(id), safe = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const drawn = [...KEYS.ids.map((id) => el(id)), ...KEYS.binds.flatMap((k) => [...document.querySelectorAll(`[data-bind="${k}"]`)])].map((e) => (e && typeof e.innerHTML === 'string' ? e.innerHTML : '')).join(' ');
+  const html = `<body>${drawn}</body>`, claims = RECEIPTS.claims(html), head = RECEIPTS.headline('the-crystal', html), more = RECEIPTS.extra('the-crystal', html);
+  const src = '<a class="src" href="data/runs/sealed.json">receipt: the sealed run ↗</a>', passed = claims.filter((c) => c.pass === true).length, failed = claims.filter((c) => c.pass === false);
+  const stats = [];
+  if (head) stats.push(`<div class="stat reveal"><div class="n"><span class="was">${safe(head.was)}</span><span class="arrow">→</span><span class="now">${safe(head.now)}</span></div><div class="lab"><b>Of ${head.of} sealed problems.</b> ${safe(head.label[0].toUpperCase() + head.label.slice(1))}.</div>${src}</div>`);
+  for (const x of more) stats.push(`<div class="stat reveal"><div class="n">${x.after !== undefined ? `<span class="was">${safe(x.value)}</span><span class="arrow">→</span><span class="now">${safe(x.after)}</span>` : `<span class="now">${safe(x.value)}</span><span class="was" style="font-size:.42em"> /${x.of.toLocaleString('en')}</span>`}</div><div class="lab"><b>${safe(x.label[0].toUpperCase() + x.label.slice(1))}.</b> Of ${x.of.toLocaleString('en')}.</div>${src}</div>`);
+  if (claims.length) stats.push(`<div class="stat reveal"><div class="n"><span class="now">${passed}</span><span class="was" style="font-size:.42em"> /${claims.length}</span>${failed.length ? ` <span class="bad" style="font-size:.5em">−${failed.length}</span>` : ''}</div><div class="lab"><b>Pre-registered claims passed.</b> ${failed.length ? `${failed.map((c) => c.id).join(', ')} failed and ${failed.length === 1 ? 'is' : 'are'} kept on the page, in red.` : 'A claim that fails stays on the page, in red.'}</div>${src}</div>`);
+  el('hsReceipts').innerHTML = stats.join('') || '<div class="stat"><div class="n"><span class="wait">—</span></div><div class="lab">The sealed run. <span class="tag gd">sealing now</span></div></div>';
+  el('hsClaims').innerHTML = claims.map((c) => `<div class="srow ${c.pass === false ? 'red' : c.pass === null ? 'gold' : ''}"><div class="d">${c.id}</div><div class="nm"><b>${safe(c.name)}</b><span>${safe(c.result)}</span>${c.pass === true ? '<span class="tag cy">pass</span>' : c.pass === false ? '<span class="tag rd">fail · kept</span>' : '<span class="tag gd">sealing now</span>'}</div></div>`).join('') || '<div class="srow gold"><div class="d">—</div><div class="nm"><span>the sealed run is not published yet</span><span class="tag gd">sealing now</span></div></div>';
+  const rest = `${passed} of ${claims.length} claims passed${failed.length ? ` · ${failed.length} failed and kept` : ''} · point at a face`;
+  el('hsFacet').innerHTML = rest;
+  const crystal = CRYSTAL.mount(el('crystal'), { energy: 0.9 });
+  if (crystal) {
+    crystal.setFaces(Array.from({ length: 32 }, (_, i) => (claims[i] ? (claims[i].pass === true ? 1 : claims[i].pass === false ? 3 : 2) : 0)));
+    crystal.onHover((i) => { const c = claims[i]; el('hsFacet').innerHTML = c ? `<b>${c.id} ${safe(c.name)}</b> · ${c.pass === true ? 'pass' : c.pass === false ? 'FAIL, kept' : 'sealing now'} · ${safe(c.result)}` : rest; });
+    crystal.onPick(() => { const s = el('claims'); if (s && s.scrollIntoView) s.scrollIntoView({ behavior: 'smooth' }); });
+    HOUSE.bindScroll(crystal, 0.9);
+  }
+  HOUSE.reveal(document); HOUSE.light(document);
+})();
 </script>
 </body>
 </html>
